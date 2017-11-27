@@ -1,0 +1,221 @@
+// Author: Kazuki Sona
+// Program: StackOverdue
+
+Assignment3: StackOverdue 
+
+- Design Proposal -
+Book management system
+operated from command line
+
+Classes: no inheritance relationship
+
+// Stores individual book information
+// and operations on these data
+Book
+{
+Data:
+  int ID;
+  string title;
+  string author;
+  string genre;
+  int popularity;
+
+Constructors:
+  Book(); // default
+  Book(ID, Title, Author, Grenre);
+  ~Book();
+
+Methods:
+  setID();
+  setTitle();
+  setAuthor();
+  setGenre();
+  incrPopularity();
+  int checkedUser; // ID of a user checked out this book
+  getID();
+  getTitle();
+  getAuthor();
+  getGenre();
+  getPopularity();
+  getWhoCheckedOut(); // returns checkedUser id
+  displayContents(); // display all contents of a book
+  overloading <<; // provide a short description of a book
+};
+
+// Stores individual user information
+// and operates on these data
+// use a vector for holding check-out items since it's only 10 items
+User 
+{
+#include "Book.h"
+Data:
+  int ID;
+  string name;
+  Book[] checkedOuts; // 10 books at most, implement as a vector of 10 elements
+  int numCheckout;
+  bool overdue;
+
+Constructors:
+  User(); // default constructor
+  User(ID, Name, NumCheckOut, Vec<Book>);
+  ~User();
+
+Methods:
+  setID();
+  setName();
+  setNumCheckout();
+  setOverdue();
+  rentBook();
+  rentBook();// deal with multiple Book object, vector of ids
+  returnBook();
+  returnBook(); // deal with multiple Book object, vector of ids
+  reNew();
+  getID();
+  getName();
+  isOverdue();
+  getCheckedOuts(); // returns a vector of books
+  overloading operator <<; // provides a short description of a user
+};
+
+// Responsible for managing a whole collection of books
+// use STL map for fast retrieval <need mapping>
+BookWareHouse class
+{
+#include "Book.h"
+Data:
+  int numBooks; // can be used for Book IDs
+  map<Book> books;// data container for books
+
+Constructors:
+  BookWareHouse();
+  BookWareHouse(numBooks, Input file);
+  ~BookWareHouse();
+
+Methods:
+  setNumBooks();
+  getNumBooks();
+  addBook(); // add a new book to the collections
+  delBook(); // remove a book from the collections
+  exportBooks(); // export books to output file
+  displayBook(); //display individual book
+  displayAll();
+  sortBooks(Criteria); // sort books by criteria
+  searchBooks(criteria); // return search result by criteria 
+};
+
+// Responsible for managing a whole group of users
+// not sure which data containers yet
+Accounts class
+{
+#include "User.h"
+Data:
+  int numUsers; // can be used for User IDs
+  map<int User.ID, User*>// data container for users
+
+Constructors:
+  Accounts();
+  Accounts(numUsers, inputFile);
+  ~Accounts();
+
+Methods:
+  setNumUsers();
+  getNumUsers();
+  exportUsers(); // export users to output file
+  displayUser(); // display individual account(user)
+  displayAll(); display all user
+  sortAccounts(criteria); // sort users by criteria
+  addUser();
+  delUser();
+  findUser();
+}
+
+// Manages books and a user account in a library and executes
+// library's operations managing books and users
+Dependencies: #include "BookWarehouse.h", "Accounts.h"
+Library class
+{
+Data:
+   BookWareHouse books;
+   Accounts accounts;   
+
+Constructors:
+   Library();
+   Library(fileBooks, fileUsers);
+   ~Library();
+
+Methods:
+   getNumBooks();
+   getNumUsers();
+   browseBooks();
+   searchBooks();
+   accounts();
+   account();
+   checkOut(); // call accounts.findUser(); and then call user.rentBook();
+   renew(); // call accounts.findUser(); and then call user.renew();
+   return(); // call accounts.findUser(); and then call user.return();
+   addBook(); // call books.addBook();
+   removeBook(); // call books.delBook();
+   addAccount(); // call accounts.addUser();
+   removeAccount(); // call accounts.delUser();
+}
+
+// Manages a basic flow of the program
+// and stores system information
+// file I/O, user inputs, and execute commands
+Dependencies: #include "Library.h"
+StackOverdue class:
+{
+  int time; // system time
+  
+  browse();// BROWSE command interface
+  book(); // BOOK command interface
+  search(); // SEARCH command interface
+  accounts(); // ACCOUNTS command interface
+  account(); // ACCOUNT command interface
+  checkout(); // CHECKOUT command interface
+  renew(); // RENEW command interface
+  return(); // RETURN command interface
+  recommend(); // RECOMMEND command interface
+  addB(); // ADDB command interface
+  removeB // REMOVEB command interface
+  addA(); // ADDA command interface
+  removeA // REMOVEA command interface
+  time(); // TIME command interface
+  systemInfo(); // SYSTEM command interface
+  showHelp(); // HELP command interface
+  export(); // EXPORT command interface
+  exit(); // EXIT command interface
+  
+  // utilities
+  setTime(); // set time var
+  getTime();
+  errorHandler(); // for commands
+};
+
+
+Functionalities:
+
+BROWSE
+BOOK
+SEARCH
+ACCOUNTS
+ACCOUNT
+CHECKOUT
+RENEW*
+RETURN*
+RECOMMEND
+ADDB*
+REMOVEB*
+ADDA*
+REMOVEA*
+SYSTEM*
+TIME*
+EXPORT*
+HELP*
+EXIT*
+
+Notes:
+1. if a user or book is removed from system, its IDs are reserved and moved to removed
+2. still need to figure out which data container I should use for storing books and users
+3. how to deal with genre and author for recommendations. Might be map<string genre, int count>
+4. 
