@@ -14,23 +14,23 @@ public:
 	// constructors
 	User();
 	User(unsigned int newId, string newName, unsigned int newNumChecked, vector<Book> newCheckedBooks);
-	~User();
+	~User() {}
 
 	// methods
 	// mutator
-	void setID(unsigned int newId) { ID = newId;};
-	void setName(string newName) { name = newName;};
-	void setCheckedBooks(vector<Book> newBooks) { checkedouts = newBooks;};
-	void setNumCheckout() { numCheckout = checkedouts.capacity();};
-	void setOverdue(bool newValue) { overdue = newValue;};
+	void setID(unsigned int newId) { ID = newId;}; // implemented
+	void setName(string newName) { name = newName;}; // implemented
+	void setCheckedBooks(vector<Book> newBooks) { checkedouts = newBooks;}; // implemented
+	void setNumCheckout() { numCheckout = checkedouts.capacity();}; // implemented
+	void setOverdue(bool newValue) { overdue = newValue;}; // implemented
 
 	// accessor
-	unsigned int getID() { return ID;};
-	string getName() { return name;};
-	vector<Book> getCheckedouts() { return checkedouts;};
-	unsigned int getNumCheckout() { return numCheckout;};
-	bool isOverdue() { return overdue;};
-	bool isRenewed() { return renewed;};
+	unsigned int getID() { return ID;}; // implemented
+	string getName() { return name;}; // implemented
+	vector<Book> getCheckedouts() { return checkedouts;}; // implemented
+	unsigned int getNumCheckout() { return numCheckout;}; // implemented
+	bool isOverdue() { return overdue;}; // implemented
+	bool isRenewed() { return renewed;}; // implemented
 
 	// other
 	bool rentBook(unsigned int bookId);

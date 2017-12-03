@@ -10,14 +10,14 @@ public:
 	// constructors
 	Accounts();
 	Accounts(unsigned int newNumUsers);
-	~Accounts();
+	~Accounts() {};
 
 	// method
 	// mutator
-	void setNumUsers(unsigned int newNumUsers) { numUsers = newNumUsers;};
+	void setNumUsers(unsigned int newNumUsers) { numUsers = newNumUsers;}; // implemented
 
 	// accessor
-	unsigned int getNumUsers() { return numUsers;};
+	unsigned int getNumUsers() { return numUsers;}; // implemented
 
 	// other
 	bool addUser(unsigned int newUserId);

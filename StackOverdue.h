@@ -27,8 +27,8 @@ public:
 	void export();
 	void exit();
 
-	void setTime(unsigned int newTime) { systemTime = newTime;};
-	unsigned int getTime() { return systemTime;};
+	void setTime(unsigned int newTime) { systemTime = newTime;}; // implemented
+	unsigned int getTime() { return systemTime;}; // implemented
 	void errorHandler();
 	
 private:

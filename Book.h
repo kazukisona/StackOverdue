@@ -9,28 +9,28 @@ public:
 	// constructors
 	Book();
 	Book(int newId, string newTitle, string newAuthor, string newGenre);
-	~Book() {};
+	~Book() {}; // implemented
 
 	// methods
 	// mutator
-	void setID(unsigned int newId) { ID = newId;};
-	void setTitle(string newTitle) { title = newTitle;};
-	void setAuthor(string newAuthor) { author = newAuthor;};
-	void setGenre(string newGenre) { genre = newGenre;};
-	void incrPopularity() { popularity++;};
-	void setCheckedUser(unsigned int newUser) { checkedUser = newUser;};
+	void setID(unsigned int newId) { ID = newId;} // implemented
+	void setTitle(string newTitle) { title = newTitle;} // implemented
+	void setAuthor(string newAuthor) { author = newAuthor;} // implemented
+	void setGenre(string newGenre) { genre = newGenre;} // implemented
+	void incrPopularity() { popularity++;} // implemented
+	void setCheckedUser(unsigned int newUser) { checkedUser = newUser;} // implemented
 
 	// accessor 
-	int getID() { return ID;};
-	string getTitle() { return title;};
-	string getAuthor() { return author;};
-	string getGenre() { return genre;};
-	int getPopularity() { return popularity;};
-	int getCheckedUser() { return checkedUser;};
+	int getID() { return ID;} // implemented
+	string getTitle() { return title;} // implemented
+	string getAuthor() { return author;} // implemented
+	string getGenre() { return genre;} // implemented
+	int getPopularity() { return popularity;} // implemented
+	int getCheckedUser() { return checkedUser;} // implemented
 
 	// other
 	void displayContents();
-	void clearChecked() { checkedUser = 0; };
+	void clearChecked() { checkedUser = 0; } // implemented
 	
 private:
 	unsigned int ID;

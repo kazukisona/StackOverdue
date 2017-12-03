@@ -13,12 +13,12 @@ public:
 	// constructors
 	Library();
 	Library(ifstream& fileBooks, ifstream& fileUsers);
-	~Library();
+	~Library() {};
 
 	// method
 	// accessor
-	unsigned int getNumBooks() { return books.getNumBooks();};
-	unsigned int getNumUsers() { return accounts.getNumUsers();};
+	unsigned int getNumBooks() { return books.getNumBooks();}; // implemented
+	unsigned int getNumUsers() { return accounts.getNumUsers();}; // implemented
 
 	// other
 	void browseBooks(unsigned int bookId);

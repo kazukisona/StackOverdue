@@ -12,14 +12,14 @@ public:
 	// constructor
 	BookWarehouse();
 	BookWarehouse(unsigned int newNumBooks, );
-	~BookWarehouse();
+	~BookWarehouse() {}; // implemented
 
 	// method
 	// mutator
-	void setNumBooks(unsigned int newNumBooks) { numBooks = newNumBooks;};
+	void setNumBooks(unsigned int newNumBooks) { numBooks = newNumBooks;}; // implemented
 
 	// accessor
-	unsigned int getNumBooks() { return numBooks;};
+	unsigned int getNumBooks() { return numBooks;}; // implemented
 
 	// other
 	bool addBook();
