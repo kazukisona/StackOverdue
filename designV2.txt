@@ -14,11 +14,12 @@ Classes: no inheritance relationship
 Book
 {
 Data:
-  int ID;
+  unsigned int ID;
   string title;
   string author;
   string genre;
-  int popularity;
+  unsigned int popularity;
+  unsigned int checkedUser; // ID of a user checked out this book
 
 Constructors:
   Book(); // default
@@ -31,13 +32,13 @@ Methods:
   setAuthor();
   setGenre();
   incrPopularity();
-  int checkedUser; // ID of a user checked out this book
+  
   getID();
   getTitle();
   getAuthor();
   getGenre();
   getPopularity();
-  getWhoCheckedOut(); // returns checkedUser id
+  getCheckedUser(); // returns checkedUser id
   displayContents(); // display all contents of a book
   overloading <<; // provide a short description of a book
 };
@@ -49,11 +50,12 @@ User
 {
 #include "Book.h"
 Data:
-  int ID;
+  unsigned int ID;
   string name;
-  Book[] checkedOuts; // 10 books at most, implement as a vector of 10 elements
-  int numCheckout;
+  vector<Book> checkedOuts; // 10 books at most, implement as a vector of 10 elements
+  unsigned int numCheckout;
   bool overdue;
+  bool renewed;
 
 Constructors:
   User(); // default constructor
@@ -63,17 +65,20 @@ Constructors:
 Methods:
   setID();
   setName();
+  setCheckedBooks();
   setNumCheckout();
   setOverdue();
   rentBook();
   rentBook();// deal with multiple Book object, vector of ids
   returnBook();
   returnBook(); // deal with multiple Book object, vector of ids
-  reNew();
+  renew();
   getID();
   getName();
   isOverdue();
+  isRenewed();
   getCheckedOuts(); // returns a vector of books
+  getNumCheckout();
   overloading operator <<; // provides a short description of a user
 };
 
@@ -83,8 +88,8 @@ BookWareHouse class
 {
 #include "Book.h"
 Data:
-  int numBooks; // can be used for Book IDs
-  map<Book> books;// data container for books
+  unsigned int numBooks; // can be used for Book IDs
+  map<int, *Book> books;// data container for books
 
 Constructors:
   BookWareHouse();
