@@ -1,14 +1,15 @@
 #ifndef BOOK_H
 #define BOOK_H
 #include <iostream>
+#include <set>
 
 using namespace std;
 
 class Book {
 public:
 	// constructors
-	Book();
-	Book(int newId, string newTitle, string newAuthor, string newGenre);
+	Book() {};// implemented
+	Book(unsigned int newId, string newTitle, string newAuthor, string newGenre, unsigned int newPop);
 	~Book() {}; // implemented
 
 	// methods
@@ -18,20 +19,27 @@ public:
 	void setAuthor(string newAuthor) { author = newAuthor;} // implemented
 	void setGenre(string newGenre) { genre = newGenre;} // implemented
 	void incrPopularity() { popularity++;} // implemented
-	void setCheckedUser(unsigned int newUser) { checkedUser = newUser;} // implemented
+	void setCheckedUser(unsigned int newUser) { checkedUser = newUser; available = false;} // implemented
+	void setDueDate(unsigned int newDate) { dueDate = newDate;}
 
 	// accessor 
-	int getID() { return ID;} // implemented
-	string getTitle() { return title;} // implemented
-	string getAuthor() { return author;} // implemented
-	string getGenre() { return genre;} // implemented
-	int getPopularity() { return popularity;} // implemented
-	int getCheckedUser() { return checkedUser;} // implemented
+	int getID() const { return ID;} // implemented
+	string getTitle() const { return title;} // implemented
+	string getAuthor() const { return author;} // implemented
+	string getGenre() const { return genre;} // implemented
+	unsigned int getPopularity() const { return popularity;} // implemented
+	unsigned int getCheckedUser() const { return checkedUser;} // implemented
+	unsigned int getNumRenewed() const { return numRenewed;} // implemented
+	unsigned int getDueDate() const { return dueDate;} // implemented
+	bool isAvailable() const { return available;} // implemented
 
 	// other
-	void displayContents();
-	void clearChecked() { checkedUser = 0; } // implemented
-	
+	void display() const;
+	void clearChecked() { checkedUser = 0; available = true;} // implemented
+	void incrNumRenewed() { numRenewed++;}// implemented
+	void clearRenewed() { numRenewed = 0;}// implemented
+	void renew() { dueDate += 5; incrNumRenewed();}// implemented
+
 private:
 	unsigned int ID;
 	string title;
@@ -39,6 +47,12 @@ private:
 	string genre;
 	unsigned int popularity;
 	unsigned int checkedUser; // ID of a user checked out this book
+	unsigned int numRenewed;
+	unsigned int dueDate;
+	bool available;
+
+	// set for unique user
+	// set<int, bool> histories;
 };
 
 // insert operator overloading << friend function

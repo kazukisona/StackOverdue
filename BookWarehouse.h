@@ -2,6 +2,8 @@
 #define BOOKWAREHOUSE_H
 
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include <map>
 #include "Book.h"
 
@@ -10,9 +12,9 @@ using namespace std;
 class BookWarehouse {
 public:
 	// constructor
-	BookWarehouse();
-	BookWarehouse(unsigned int newNumBooks, );
-	~BookWarehouse() {}; // implemented
+	BookWarehouse() {}
+	BookWarehouse(ifstream& newBooks);
+	~BookWarehouse() {} // implemented
 
 	// method
 	// mutator
@@ -20,19 +22,23 @@ public:
 
 	// accessor
 	unsigned int getNumBooks() { return numBooks;}; // implemented
+	Book* getBook(unsigned int bookId);
 
 	// other
-	bool addBook();
+	bool addBook(Book& newBook);
+	bool addBooks();
 	bool delBook();
-	void exportBooks();
-	void displayBook();
+	bool delBooks();
+	void importBooks(ifstream& newBooks);
+	void exportBooks(ofstream& outBooks);
+	void displayBook(unsigned int bookId);
 	void displayAll();
 	void sortBooks(string criteria);
 	void searchBooks(string criteria);
 
 private:
 	unsigned int numBooks;
-	map<int, *Book> books;
+	map<int, Book*> books;
 };
 
 #endif

@@ -7,9 +7,25 @@
 using namespace std;
 
 // implementation
-Book::Book() {
-	
+Book::Book(unsigned int newId, string newTitle, string newAuthor, string newGenre, unsigned int newPop) {
+	ID = newId;
+	title = newTitle;
+	author = newAuthor;
+	genre = newGenre;
+	popularity = newPop;
+	checkedUser = 0;
+	numRenewed = 0;
+	dueDate = 0;
+	available = true;
 }
-Book::Book(int newId, string newTitle, string newAuthor, string newGenre);
+
+void Book::display() const {
+	cout << "\"" << title << "\" by " << author << " (BookID# " << ID << ") [" << genre << "]. ";
+
+	if (available)
+		cout << "AVAILABLE." << endl;
+	else
+		cout << "CHECKED OUT (AccountID# " << checkedUser << ")." << endl;
+}
 
 #endif
