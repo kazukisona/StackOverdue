@@ -21,6 +21,7 @@ public:
 	void incrPopularity() { popularity++;} // implemented
 	void setCheckedUser(unsigned int newUser) { checkedUser = newUser; available = false;} // implemented
 	void setDueDate(unsigned int newDate) { dueDate = newDate;}
+	void setNumRenewed(unsigned int newNumRenew) { numRenewed = newNumRenew;}
 
 	// accessor 
 	int getID() const { return ID;} // implemented

@@ -10,7 +10,7 @@
 using namespace std;
 
 BookWarehouse::BookWarehouse(ifstream& newBooks) {
-	importBooks(newBooks);
+	//importBooks(newBooks);
 }
 
 Book* BookWarehouse::getBook(unsigned int bookId) {
@@ -31,43 +31,16 @@ void BookWarehouse::displayAll() {
 	}
 }
 
-void BookWarehouse::importBooks(ifstream& newBooks) {
-	unsigned int newNumBooks = 0;
-	newBooks >> newNumBooks;
-	setNumBooks(newNumBooks);
-	
-	Book* temp;
-
-	while (newBooks) {
-		
-		unsigned int id, popularity;
-		string str_id, str_pop;
-		string title, author, genre;
-
-		getline(newBooks, str_id, '|');
-		getline(newBooks, title, '|');
-		getline(newBooks, author, '|');
-		getline(newBooks, genre, '|');
-		getline(newBooks, str_pop);
-
-		id = atoi(str_id.c_str());
-		popularity = atoi(str_pop.c_str());
-			
-		temp = new Book(id, title, author, genre, popularity);
-		addBook(*temp);
-	}
-
-	delete temp;
-	temp = nullptr;
-}
-
 bool BookWarehouse::addBook(Book& newBook) {
 	bool success = false;
+	
 	unsigned int id = newBook.getID();
 	books[id] = &newBook;
 
+	// increment size
+	numBooks++;
+
 	return success;
 }
-
 
 #endif

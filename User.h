@@ -12,6 +12,8 @@ public:
 	
 	// constructors
 	User() {}
+	User(unsigned int newId, string newName) { ID = newId; name = newName; numCheckout=0; overdue=false;}
+	User(unsigned int newId, string newName, unsigned int newNumChecked);
 	User(unsigned int newId, string newName, unsigned int newNumChecked, vector<Book*> newCheckedBooks);
 	~User() {}
 
@@ -30,12 +32,13 @@ public:
 	unsigned int getNumCheckout() { return numCheckout;}; // implemented
 
 	// other
-	bool rentBook(Book book);
-	bool rentBook(vector<Book*>& books);
+	bool rentBook(Book& book);
+	bool rentBook(vector<Book*> books);
 	bool returnBook(unsigned int bookId);
 	bool isOverdue() { return overdue;}; // implemented
 	void renewBook(Book& book) { book.renew();}
 	void displayBooks();
+	void display();
 
 private:
 	unsigned int ID;

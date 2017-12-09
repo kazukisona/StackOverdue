@@ -8,8 +8,8 @@
 class Accounts {
 public:
 	// constructors
-	Accounts();
-	Accounts(unsigned int newNumUsers);
+	Accounts() {}
+	Accounts(ifstream& newUsers);
 	~Accounts() {};
 
 	// method
@@ -20,7 +20,7 @@ public:
 	unsigned int getNumUsers() { return numUsers;}; // implemented
 
 	// other
-	bool addUser(unsigned int newUserId);
+	bool addUser(User& newUser);
 	bool delUser(unsigned int delUserId);
 	unsigned int findUser(string criteria);
 	void sortAccounts(string criteria);
@@ -29,6 +29,6 @@ public:
 
 private:
 	unsigned int numUsers;
-	map<unsigned int, User*> users;
+	map<int, User*> users;
 };
 #endif

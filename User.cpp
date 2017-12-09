@@ -6,6 +6,13 @@
 
 using namespace std;
 
+User::User(unsigned int newId, string newName, unsigned int newNumChecked) {
+	ID = newId;
+	name = newName;
+	numCheckout = newNumChecked;
+	overdue = false;
+}
+
 User::User(unsigned int newId, string newName, unsigned int newNumChecked, vector<Book*> newCheckedBooks) {
 	ID = newId;
 	name = newName;
@@ -14,7 +21,7 @@ User::User(unsigned int newId, string newName, unsigned int newNumChecked, vecto
 	overdue = false;
 }
 
-bool User::rentBook(Book book) {
+bool User::rentBook(Book& book) {
 	bool success = false;
 
 	if (checkedOuts.capacity() >= 10)
@@ -27,7 +34,7 @@ bool User::rentBook(Book book) {
 	return success;
 }
 
-bool User::rentBook(vector<Book*>& books) {
+bool User::rentBook(vector<Book*> books) {
 	bool success = false;
 
 	for (int i = 0; i < books.size(); ++i) {
@@ -35,7 +42,6 @@ bool User::rentBook(vector<Book*>& books) {
 			return success;
 
 		books[i]->setCheckedUser(ID);
-
 		checkedOuts.push_back(books[i]);
 	}
 
@@ -61,9 +67,17 @@ bool User::returnBook(unsigned int bookId) {
 }
 
 void User::displayBooks() {
+	int c = 1;
 	for (vector<Book*>::iterator it = checkedOuts.begin(); it != checkedOuts.end(); ++it) {
+		cout << "\t" << c << ". ";
 		(*it)->display();
+		c++;
 	}
+}
+
+void User::display() {
+	cout << name << " (AccountID# " << ID << "). " << numCheckout << " books checked out: " << endl;
+	displayBooks();
 }
 
 #endif
