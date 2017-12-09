@@ -26,8 +26,10 @@ void BookWarehouse::displayBook(unsigned int bookId) {
 
 void BookWarehouse::displayAll() {
 	for (map<int, Book*>::iterator it=books.begin(); it != books.end(); ++it) {
-		it->second->display();
-		cout << endl;
+		if (it->first != 0) {
+			it->second->display();
+			cout << endl;
+		}
 	}
 }
 

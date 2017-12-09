@@ -13,9 +13,9 @@ Library::Library(ifstream& fileBooks, ifstream& fileAccounts) {
 }
 
 void Library::importBooks(ifstream& newBooks) {
-	unsigned int newNumBooks;
-	newBooks >> newNumBooks; // no data changed
-	
+	string line;
+	getline(newBooks, line);
+
 	Book* temp;
 	while (newBooks) {
 		unsigned int id, popularity;
@@ -40,8 +40,8 @@ void Library::importBooks(ifstream& newBooks) {
 }
 
 void Library::importAccounts(ifstream& newAccounts) {
-	unsigned int newNumAccounts;
-	newAccounts >> newNumAccounts; // no data changed
+	string line;
+	getline(newAccounts, line);
 
 	User* tempU;
 	// user loop
@@ -84,12 +84,7 @@ void Library::importAccounts(ifstream& newAccounts) {
 		}
 
 		accounts.addUser(*tempU);
-		//delete tempB;
-		//tempB = nullptr;
 	}
-
-	//delete tempU;
-	//tempU = nullptr;
 }
 
 bool Library::addBook(string newTitle, string newAuthor, string newGenre, unsigned int newPop) {

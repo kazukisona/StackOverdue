@@ -23,9 +23,14 @@ bool Accounts::addUser(User& newUser) {
 }
 
 void Accounts::displayAll() {
+	int c = 0;
 	for (map<int, User*>::iterator it=users.begin(); it != users.end(); ++it) {
-		it->second->display();
-		cout << endl;
+		if (it->first != 0) {
+			cout << c << ". ";
+			it->second->display();
+			cout << endl;
+		}
+		c++;
 	}
 }
 
