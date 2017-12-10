@@ -11,9 +11,9 @@ using namespace std;
 class Library {
 public:
 	// constructors
-	Library() {}
+	Library() {} // implemented
 	Library(ifstream& newBooks, ifstream& newAccounts);
-	~Library() {}
+	~Library() {} // implemented
 
 	// method
 	// accessor
@@ -21,24 +21,24 @@ public:
 	unsigned int getNumUsers() { return accounts.getNumUsers();}; // implemented
 
 	// other
-	void browseAllBooks() { warehouse.displayAll();}
-	void browseBooks(unsigned int bookId);
+	void browseAllBooks() { warehouse.displayAll();} // implemented
+	void browseBooks(string criteria) { warehouse.sortBooks(criteria);}
 	void searchBooks(string criteria);
-	void browseAllAccounts() { accounts.displayAll();}
+	void browseAllAccounts() { accounts.displayAll();} // implemented
 	void searchAccounts(string criteria);
+	void findBook(unsigned int bookId);
 	void findAccount(unsigned int userId);
 	bool checkOut(unsigned int userId, unsigned int bookId);
 	bool renewBook(unsigned int userId);
 	bool returnBook(unsigned int bookId);
-	bool addBook(Book& book) { return warehouse.addBook(book);}
+	bool addBook(Book& book) { return warehouse.addBook(book);} // implemented
 	bool addBook(string newTitle, string newAuthor, string newGenre, unsigned int newPop);
 	bool removeBook();
-	bool addAccount(User& newUser) { return accounts.addUser(newUser);}
+	bool addAccount(User& newUser) { return accounts.addUser(newUser);} // implemented
 	bool addAccount(string newName);
 	bool removeAccount();
 	void importBooks(ifstream& newBooks);
 	void importAccounts(ifstream& newAccounts);
-
 
 private:
 	BookWarehouse warehouse;

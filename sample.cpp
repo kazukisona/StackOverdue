@@ -18,29 +18,18 @@ int main() {
 	User user1, user2;
 
 	ifstream inputs;
-
-	inputs.open("data/library.small/books.data");
-
-	//BookWarehouse warehouse = BookWarehouse(inputs);
-	//warehouse.displayAll();
-	//warehouse.displayBook(24);
-
 	ifstream fileAccounts;
 
+	inputs.open("data/library.small/books.data");
 	fileAccounts.open("data/library.small/accounts.data");
 
 	Library library1 = Library(inputs, fileAccounts);
 
-	library1.browseAllBooks();
-	cout << library1.getNumBooks() << endl;
-
-	unsigned int newId = library1.getNumBooks();
-	Book b1 = Book(newId, "Computer organization", "Patterson", "Textbook", 90);
-	library1.addBook(b1);
-
-	library1.browseAllBooks();
 	library1.browseAllAccounts();
-	cout << library1.getNumBooks() << endl;
+	//library1.browseAllBooks();
+
+	library1.browseBooks("popularity");
+
 	/*
 	Book book1 = Book(1, "Computer Organization", "Patterson", "TextBook", 80);
 	book2 = Book(2, "Harry Potter", "J. K. Rolling" , "Fiction", 1000);

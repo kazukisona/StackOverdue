@@ -6,10 +6,6 @@
 
 using namespace std;
 
-Accounts::Accounts(ifstream& newUsers) {
-
-}
-
 bool Accounts::addUser(User& newUser) {
 	bool success = false;
 

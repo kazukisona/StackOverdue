@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <fstream>
-#include <sstream>
 #include <map>
 #include "Book.h"
 
@@ -13,7 +12,7 @@ class BookWarehouse {
 public:
 	// constructor
 	BookWarehouse() {}
-	BookWarehouse(ifstream& newBooks);
+	BookWarehouse(ifstream& newBooks) {}
 	~BookWarehouse() {} // implemented
 
 	// method
@@ -22,7 +21,7 @@ public:
 
 	// accessor
 	unsigned int getNumBooks() { return numBooks;}; // implemented
-	Book* getBook(unsigned int bookId);
+	Book* getBook(unsigned int bookId) { return books[bookId];}
 	unsigned int getSize() { return books.size();} // implemented
 
 	// other
@@ -30,7 +29,6 @@ public:
 	bool addBooks(vector<Book*>& books);
 	bool delBook(unsigned int bookId);
 	bool delBooks(vector<unsigned int> removedIds);
-	//void importBooks(ifstream& newBooks);// implemented
 	void exportBooks(ofstream& outBooks);
 	void displayBook(unsigned int bookId);// implemented
 	void displayAll(); // implemented

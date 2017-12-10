@@ -9,7 +9,7 @@ class Accounts {
 public:
 	// constructors
 	Accounts() {}
-	Accounts(ifstream& newUsers);
+	Accounts(ifstream& newUsers) {}
 	~Accounts() {};
 
 	// method
@@ -18,6 +18,7 @@ public:
 
 	// accessor
 	unsigned int getNumUsers() { return numUsers;}; // implemented
+	User* getUser(unsigned int userId) { return users[userId];}
 
 	// other
 	bool addUser(User& newUser);

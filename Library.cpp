@@ -34,15 +34,12 @@ void Library::importBooks(ifstream& newBooks) {
 		temp = new Book(id, title, author, genre, popularity);
 		warehouse.addBook(*temp);
 	}
-
-	delete temp;
-	temp = nullptr;
 }
 
 void Library::importAccounts(ifstream& newAccounts) {
 	string line;
 	getline(newAccounts, line);
-
+	
 	User* tempU;
 	// user loop
 	while (newAccounts) {
@@ -57,7 +54,6 @@ void Library::importAccounts(ifstream& newAccounts) {
 		// turn str into int
 		userId = atoi(str_idU.c_str());
 		numCheckout = atoi(str_numCheck.c_str());
-
 		tempU = new User(userId, name, numCheckout);
 
 		Book * tempB;
@@ -79,10 +75,8 @@ void Library::importAccounts(ifstream& newAccounts) {
 			tempB = warehouse.getBook(bookId);
 			tempB->setDueDate(dueDate);
 			tempB->setNumRenewed(numRenew);
-
 			tempU->rentBook(*tempB);
 		}
-
 		accounts.addUser(*tempU);
 	}
 }

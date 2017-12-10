@@ -8,14 +8,20 @@ using namespace std;
 
 class StackOverdue {
 public:
+	StackOverdue() { systemTime = 0; systemStatus = true;}
+	StackOverdue(ifstream& newBooks, ifstream& newUsers);
+	~StackOverdue() {}
+
+	// methods
+	// commands
 	void browse();
 	void book();
 	void search();
 	void accounts();
 	void account();
 	void checkout();
-	void renew();
-	void return();
+	void renewBook();
+	void returnBook();
 	void recommend();
 	void addB();
 	void removeB();
@@ -27,12 +33,18 @@ public:
 	void export();
 	void exit();
 
-	void setTime(unsigned int newTime) { systemTime = newTime;}; // implemented
-	unsigned int getTime() { return systemTime;}; // implemented
-	void errorHandler();
+	// mutator
+	void setTime(unsigned int newTime) { systemTime = newTime;} // implemented
+
+	// accessor
+	unsigned int getTime() { return systemTime;} // implemented
+	bool getSystemStatus() { return systemStatus;}
+	bool errorHandler();
 	
 private:
 	unsigned int systemTime;
+	bool systemStatus;
+	Library library;
 };
 
 #endif
