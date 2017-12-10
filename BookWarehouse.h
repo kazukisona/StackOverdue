@@ -30,7 +30,7 @@ public:
 	bool delBook(unsigned int bookId);
 	bool delBooks(vector<unsigned int> removedIds);
 	void exportBooks(ofstream& outBooks);
-	void displayBook(unsigned int bookId);// implemented
+	void displayBook(unsigned int bookId) { books[bookId]->display();} // implemented
 	void displayAll(); // implemented
 	void sortBooks(string criteria);
 	void searchBooks(string criteria);

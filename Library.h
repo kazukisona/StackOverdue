@@ -25,6 +25,7 @@ public:
 	void browseBooks(string criteria) { warehouse.sortBooks(criteria);}
 	void searchBooks(string criteria);
 	void browseAllAccounts() { accounts.displayAll();} // implemented
+	void browseAccounts(string criteria) { accounts.sortAccounts(criteria);}
 	void searchAccounts(string criteria);
 	void findBook(unsigned int bookId);
 	void findAccount(unsigned int userId);

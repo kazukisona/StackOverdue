@@ -7,10 +7,6 @@
 
 using namespace std;
 
-void BookWarehouse::displayBook(unsigned int bookId) {
-	books[bookId]->display();
-}
-
 void BookWarehouse::displayAll() {
 	for (map<int, Book*>::iterator it=books.begin(); it != books.end(); ++it) {
 		if (it->first != 0) {
@@ -43,12 +39,9 @@ void BookWarehouse::sortBooks(string criteria) {
 		multimap<string, Book*>::iterator sortedIt;
 		for (map<int, Book*>::iterator it=books.begin(); it!=books.end(); ++it) {
 			string key;
-			if (criteria == "title")
-				key = it->second->getTitle();
-			else if (criteria == "author")
-				key = it->second->getAuthor();
-			else
-				key = it->second->getGenre();
+			if (criteria == "title") key = it->second->getTitle();
+			else if (criteria == "author") key = it->second->getAuthor();
+			else key = it->second->getGenre();
 			if (it->first != 0)
 				sorted.insert(pair<string, Book*>(key, it->second));
 		}

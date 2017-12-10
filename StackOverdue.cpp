@@ -6,12 +6,6 @@
 
 using namespace std;
 
-StackOverdue::StackOverdue(ifstream& newBooks, ifstream& newUsers) {
-	library = Library(newBooks, newUsers);
-	systemTime = 0;
-	systemStatus = true;
-}
-
 void StackOverdue::browse() {
 	string criteria;
 	cout << "Enter the criteria to sort by. (title/author/genre/bookid/popularity)" << endl;
@@ -32,5 +26,24 @@ void StackOverdue::book() {
 
 	// error handling
 	library.findBook(bookid);
+}
+
+void StackOverdue::accounts() {
+	string criteria;
+	cout << "Enter the criteria to sort by. (name/accountid/checkouts)" << endl;
+	cout >> "> ";
+	cin >> criteria;
+	// error handling
+	library.browseAccounts(criteria);
+}
+
+void StackOverdue::account() {
+	unsigned int userid;
+
+	cout << "Enter the account id." << endl;
+	cout << "> ";
+	cin >> userid;
+	// error handling
+	library.findAccount(userid);
 }
 #endif

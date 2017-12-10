@@ -8,8 +8,9 @@ using namespace std;
 
 class StackOverdue {
 public:
-	StackOverdue() { systemTime = 0; systemStatus = true;}
-	StackOverdue(ifstream& newBooks, ifstream& newUsers);
+	StackOverdue(): systemTime(0), systemStatus(true) {}
+	StackOverdue(ifstream& newBooks, ifstream& newUsers)
+		: systemTime(0), systemStatus(true) {library = Library(newBooks, newUsers);}
 	~StackOverdue() {}
 
 	// methods

@@ -22,10 +22,8 @@ void Library::importBooks(ifstream& newBooks) {
 		string str_id, str_pop;
 		string title, author, genre;
 
-		getline(newBooks, str_id, '|');
-		getline(newBooks, title, '|');
-		getline(newBooks, author, '|');
-		getline(newBooks, genre, '|');
+		getline(newBooks, str_id, '|');  getline(newBooks, title, '|');
+		getline(newBooks, author, '|');  getline(newBooks, genre, '|');
 		getline(newBooks, str_pop);
 
 		id = atoi(str_id.c_str());
@@ -39,7 +37,7 @@ void Library::importBooks(ifstream& newBooks) {
 void Library::importAccounts(ifstream& newAccounts) {
 	string line;
 	getline(newAccounts, line);
-	
+
 	User* tempU;
 	// user loop
 	while (newAccounts) {
@@ -93,6 +91,11 @@ bool Library::addAccount(string newName) {
 	User nUser = User(newId, newName);
 
 	return accounts.addUser(nUser);
+}
+
+void Library::findBook(unsigned int bookId) {
+	Book * temp = warehouse.getBook(bookId);
+	temp->displayDetail();
 }
 
 #endif

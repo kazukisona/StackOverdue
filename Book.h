@@ -36,6 +36,7 @@ public:
 
 	// other
 	void display() const;
+	void displayDetail() const;
 	void clearChecked() { checkedUser = 0; available = true;} // implemented
 	void incrNumRenewed() { numRenewed++;}// implemented
 	void clearRenewed() { numRenewed = 0;}// implemented
@@ -51,6 +52,7 @@ private:
 	unsigned int numRenewed;
 	unsigned int dueDate;
 	bool available;
+	bool overdue;
 
 	// set for unique user
 	// set<int, bool> histories;

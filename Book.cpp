@@ -17,6 +17,7 @@ Book::Book(unsigned int newId, string newTitle, string newAuthor, string newGenr
 	numRenewed = 0;
 	dueDate = 0;
 	available = true;
+	overdue = false;
 }
 
 void Book::display() const {
@@ -26,6 +27,24 @@ void Book::display() const {
 		cout << "AVAILABLE." << endl;
 	else
 		cout << "CHECKED OUT (AccountID# " << checkedUser << ")." << endl;
+}
+
+void Book::displayDetail() const {
+	cout << "Title: " << "\"" << title << "\"" << endl;
+	cout << "Author: " << author << endl;
+	cout << "BookID#: " << ID << endl;
+	cout << "Genre: " << genre << endl;
+	cout << "Popularity Score: " << popularity << endl;
+
+	if (available)
+		cout << "AVAILABLE." << endl;
+	else {
+		cout << "Borrower AccountID#: " << checkedUser << endl;
+		cout << "Due Date: " << dueDate << endl;
+		cout << "Times Renewed: " << numRenewed << endl;
+		if (overdue)
+			cout << "OVERDUE" << endl;
+	}
 }
 
 #endif
