@@ -11,6 +11,7 @@ User::User(unsigned int newId, string newName, unsigned int newNumChecked) {
 	name = newName;
 	numCheckout = newNumChecked;
 	overdue = false;
+	numOverdue = 0;
 }
 
 User::User(unsigned int newId, string newName, unsigned int newNumChecked, vector<Book*> newCheckedBooks) {
@@ -19,18 +20,15 @@ User::User(unsigned int newId, string newName, unsigned int newNumChecked, vecto
 	numCheckout = newNumChecked;
 	rentBook(newCheckedBooks);
 	overdue = false;
+	numOverdue = 0;
 }
 
 bool User::rentBook(Book& book) {
 	bool success = false;
-
-	if (checkedOuts.capacity() >= 10)
-		return success;
-
+	if (checkedOuts.capacity() >= 10) return success;
 	book.setCheckedUser(ID);
 	checkedOuts.push_back(&book);
 	success = true;
-
 	return success;
 }
 
@@ -44,9 +42,7 @@ bool User::rentBook(vector<Book*> books) {
 		books[i]->setCheckedUser(ID);
 		checkedOuts.push_back(books[i]);
 	}
-
 	success = true;
-
 	return success;
 }
 
@@ -62,7 +58,6 @@ bool User::returnBook(unsigned int bookId) {
 			return success;
 		}
 	}
-
 	return success;
 }
 
@@ -78,6 +73,22 @@ void User::displayBooks() {
 void User::display() {
 	cout << name << " (AccountID# " << ID << "). " << numCheckout << " books checked out: " << endl;
 	displayBooks();
+}
+
+void User::displayDetail() {
+	cout << "Name: " << name << endl;
+	cout << "AccountID#: " << ID << endl;
+	cout << numCheckout << " books checked out";
+
+	if (overdue) cout << " (" << numOverdue << " overdue):" << endl;
+	else cout << "." << endl;
+
+	int c = 1;
+	for (vector<Book*>::iterator it = checkedOuts.begin(); it != checkedOuts.end(); ++it) {
+		cout << "\t" << c << "." << endl;
+		(*it)->displayDetail(true);
+		c++;
+	}
 }
 
 #endif

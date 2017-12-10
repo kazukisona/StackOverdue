@@ -36,7 +36,7 @@ public:
 
 	// other
 	void display() const;
-	void displayDetail() const;
+	void displayDetail(bool space) const;
 	void clearChecked() { checkedUser = 0; available = true;} // implemented
 	void incrNumRenewed() { numRenewed++;}// implemented
 	void clearRenewed() { numRenewed = 0;}// implemented

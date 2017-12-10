@@ -17,7 +17,7 @@ public:
 	// commands
 	void browse();
 	void book();
-	void search();
+	void searchBook();
 	void accounts();
 	void account();
 	void checkout();
@@ -32,7 +32,7 @@ public:
 	void systemInfo();
 	void showHelp();
 	void export();
-	void exit();
+	void exit() { cout<<"Thank you for using StackOverdue!"<<endl; systemStatus=false;}
 
 	// mutator
 	void setTime(unsigned int newTime) { systemTime = newTime;} // implemented

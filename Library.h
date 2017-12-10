@@ -12,7 +12,7 @@ class Library {
 public:
 	// constructors
 	Library() {} // implemented
-	Library(ifstream& newBooks, ifstream& newAccounts);
+	Library(ifstream& bFile, ifstream& aFile) {importBooks(bFile); importAccounts(aFile);}
 	~Library() {} // implemented
 
 	// method
@@ -23,12 +23,11 @@ public:
 	// other
 	void browseAllBooks() { warehouse.displayAll();} // implemented
 	void browseBooks(string criteria) { warehouse.sortBooks(criteria);}
-	void searchBooks(string criteria);
+	void searchBooks(string criteria, string phrase) {warehouse.searchBooks(criteria, phrase);}
 	void browseAllAccounts() { accounts.displayAll();} // implemented
 	void browseAccounts(string criteria) { accounts.sortAccounts(criteria);}
-	void searchAccounts(string criteria);
-	void findBook(unsigned int bookId);
-	void findAccount(unsigned int userId);
+	void findBook(unsigned int bookId) {Book* b=warehouse.getBook(bookId); b->displayDetail();}
+	void findAccount(unsigned int userId) {User* u=accounts.getUser(userId); u->displayDetail();}
 	bool checkOut(unsigned int userId, unsigned int bookId);
 	bool renewBook(unsigned int userId);
 	bool returnBook(unsigned int bookId);

@@ -2,7 +2,7 @@
 #define BOOKWAREHOUSE_CPP
 
 #include <iostream>
-#include <map>
+#include <deque>
 #include "BookWarehouse.h"
 
 using namespace std;
@@ -67,6 +67,36 @@ void BookWarehouse::sortBooks(string criteria) {
 			c++;
 		}
 	}
+}
+
+void BookWarehouse::searchBooks(string criteria, string phrase) {
+	// use deque data structure because index O(1) access and insertion
+	deque<Book*> results; 
+	map<int, Book*>::iterator it;
+	string title, author;
+	// search in books
+	for (it=books.begin(); it!=books.end(); ++it) {
+		if (criteria == "title") {
+			title = it->second->getTitle();
+			if (title.find(phrase) != string::npos) 
+				results.push_back(it->second);
+		}
+		else {
+			author = it->second->getAuthor();
+			if (author.find(phrase) != string::npos) 
+				results.push_back(it->second);
+		}
+	}
+	// display the results
+	if (!results.empty()) {
+		cout << "Search Results: " << endl;
+		for (int i = 0; i < results.size(); ++i) {
+			cout << (i+1) << ". ";
+			results[i]->display();
+		}
+	} 
+	else
+		cout << "No search results found." << endl;
 }
 
 #endif

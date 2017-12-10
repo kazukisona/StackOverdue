@@ -36,7 +36,9 @@ int main() {
 	cout << endl;
 	library1.findBook(46);
 
-	library1.browseAccounts("checkouts");
+	library1.browseAccounts("name");
+	library1.findAccount(20);
+	library1.searchBooks("author", "Ab");
 	
 	return 0;
 }

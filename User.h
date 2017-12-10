@@ -12,7 +12,7 @@ public:
 	
 	// constructors
 	User() {}
-	User(unsigned int newId, string newName) { ID = newId; name = newName; numCheckout=0; overdue=false;}
+	User(unsigned int newId, string newName) { ID = newId; name = newName; numCheckout=0; overdue=false; numOverdue=0;}
 	User(unsigned int newId, string newName, unsigned int newNumChecked);
 	User(unsigned int newId, string newName, unsigned int newNumChecked, vector<Book*> newCheckedBooks);
 	~User() {}
@@ -39,6 +39,7 @@ public:
 	void renewBook(Book& book) { book.renew();}
 	void displayBooks();
 	void display();
+	void displayDetail();
 
 private:
 	unsigned int ID;
@@ -46,6 +47,7 @@ private:
 	vector<Book*> checkedOuts;
 	unsigned int numCheckout;
 	bool overdue;
+	unsigned int numOverdue;
 };
 
 #endif

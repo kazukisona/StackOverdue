@@ -6,12 +6,6 @@
 
 using namespace std;
 
-Library::Library(ifstream& fileBooks, ifstream& fileAccounts) {
-	// books must come first so that we know which acount check out which books
-	importBooks(fileBooks); // loading books
-	importAccounts(fileAccounts); // loading users(accounts)
-}
-
 void Library::importBooks(ifstream& newBooks) {
 	string line;
 	getline(newBooks, line);
@@ -91,11 +85,6 @@ bool Library::addAccount(string newName) {
 	User nUser = User(newId, newName);
 
 	return accounts.addUser(nUser);
-}
-
-void Library::findBook(unsigned int bookId) {
-	Book * temp = warehouse.getBook(bookId);
-	temp->displayDetail();
 }
 
 #endif

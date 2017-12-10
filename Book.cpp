@@ -29,21 +29,23 @@ void Book::display() const {
 		cout << "CHECKED OUT (AccountID# " << checkedUser << ")." << endl;
 }
 
-void Book::displayDetail() const {
-	cout << "Title: " << "\"" << title << "\"" << endl;
-	cout << "Author: " << author << endl;
-	cout << "BookID#: " << ID << endl;
-	cout << "Genre: " << genre << endl;
-	cout << "Popularity Score: " << popularity << endl;
+void Book::displayDetail(bool space=false) const {
+	string ch;
+	if (!space) ch = ""; else ch = "\t"; 
+	cout << ch << "Title: " << "\"" << title << "\"" << endl;
+	cout << ch << "Author: " << author << endl;
+	cout << ch << "BookID#: " << ID << endl;
+	cout << ch << "Genre: " << genre << endl;
+	cout << ch << "Popularity Score: " << popularity << endl;
 
 	if (available)
-		cout << "AVAILABLE." << endl;
+		cout << ch << "AVAILABLE." << endl;
 	else {
-		cout << "Borrower AccountID#: " << checkedUser << endl;
-		cout << "Due Date: " << dueDate << endl;
-		cout << "Times Renewed: " << numRenewed << endl;
+		cout << ch << "Borrower AccountID#: " << checkedUser << endl;
+		cout << ch << "Due Date: " << dueDate << endl;
+		cout << ch << "Times Renewed: " << numRenewed << endl;
 		if (overdue)
-			cout << "OVERDUE" << endl;
+			cout << ch << "OVERDUE" << endl;
 	}
 }
 

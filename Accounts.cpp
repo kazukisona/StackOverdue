@@ -29,6 +29,10 @@ void Accounts::displayAll() {
 	}
 }
 
+void Accounts::displayUser(unsigned int userId) {
+	
+}
+
 void Accounts::sortAccounts(string criteria) {
 	if (criteria == "accountid") {
 		displayAll(); 
