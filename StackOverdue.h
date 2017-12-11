@@ -8,19 +8,26 @@ using namespace std;
 
 class StackOverdue {
 public:
-	StackOverdue(): systemTime(0), systemStatus(true) {}
+	StackOverdue(): systemTime(1), systemStatus(true) {}
 	StackOverdue(ifstream& newBooks, ifstream& newUsers)
-		: systemTime(0), systemStatus(true) {library = Library(newBooks, newUsers);}
+		: systemTime(1), systemStatus(true) {library = Library(newBooks, newUsers);}
 	~StackOverdue() {}
 
 	// methods
+	// mutator
+	void setTime(unsigned int newTime) { systemTime = newTime;} // implemented
+
+	// accessor
+	unsigned int getTime() { return systemTime;} // implemented
+	bool getSystemStatus() { return systemStatus;} // implemented
+
 	// commands
-	void browse();
-	void book();
-	void searchBook();
-	void accounts();
-	void account();
-	void checkout();
+	void browse(); // implemented
+	void book(); // implemented
+	void searchBook(); // implemented
+	void accounts(); // implemented
+	void account(); // implemented
+	void checkout(); // implemented
 	void renewBook();
 	void returnBook();
 	void recommend();
@@ -30,18 +37,17 @@ public:
 	void removeA();
 	void time();
 	void systemInfo();
-	void showHelp();
+	void showHelp(); // implemented
 	void export();
-	void exit() { cout<<"Thank you for using StackOverdue!"<<endl; systemStatus=false;}
+	void exit() { cout<<"Thank you for using StackOverdue!"<<endl; systemStatus=false;}  // implemented
 
-	// mutator
-	void setTime(unsigned int newTime) { systemTime = newTime;} // implemented
-
-	// accessor
-	unsigned int getTime() { return systemTime;} // implemented
-	bool getSystemStatus() { return systemStatus;}
+	// utilities
+	unsigned int askBookID();
+	unsigned int askUserID();
+	unsigned int getTotalBooks();
+	unsigned int getTotalAccounts();
 	bool errorHandler();
-	
+
 private:
 	unsigned int systemTime;
 	bool systemStatus;

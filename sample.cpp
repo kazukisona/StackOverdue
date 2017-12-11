@@ -25,11 +25,6 @@ int main() {
 
 	Library library1 = Library(inputs, fileAccounts);
 
-	library1.browseAllAccounts();
-	//library1.browseAllBooks();
-
-	/**/
-	//library1.browseBooks("title");
 	cout << endl;
 	library1.findBook(100);
 
@@ -37,9 +32,20 @@ int main() {
 	library1.findBook(46);
 
 	library1.browseAccounts("name");
+	cout << endl;
 	library1.findAccount(20);
+	cout << endl;
 	library1.searchBooks("author", "Ab");
-	
+	cout << endl;
+	library1.checkOut(15, 100);
+	cout << endl;
+	library1.renewBook(20);
+	library1.addAccount("Kazuki");
+	library1.addAccount("Anne Garvey");
+	library1.browseAccounts("accountid");
+
+	library1.removeAccount(18);
+	library1.browseAccounts("accountid");
 	return 0;
 }
 

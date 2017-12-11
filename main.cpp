@@ -20,4 +20,6 @@ int main(int argc, char const *argv[]) {
 			stack.browse();
 		}
 	}
+
+	return 0;
 }

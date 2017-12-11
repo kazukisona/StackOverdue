@@ -14,34 +14,13 @@ User::User(unsigned int newId, string newName, unsigned int newNumChecked) {
 	numOverdue = 0;
 }
 
-User::User(unsigned int newId, string newName, unsigned int newNumChecked, vector<Book*> newCheckedBooks) {
-	ID = newId;
-	name = newName;
-	numCheckout = newNumChecked;
-	rentBook(newCheckedBooks);
-	overdue = false;
-	numOverdue = 0;
-}
-
 bool User::rentBook(Book& book) {
 	bool success = false;
-	if (checkedOuts.capacity() >= 10) return success;
+	if (checkedOuts.capacity() >= 10 || overdue) return success;
 	book.setCheckedUser(ID);
+	int current = 0;
+	book.setDueDate(current+15);
 	checkedOuts.push_back(&book);
-	success = true;
-	return success;
-}
-
-bool User::rentBook(vector<Book*> books) {
-	bool success = false;
-
-	for (int i = 0; i < books.size(); ++i) {
-		if (checkedOuts.capacity() >= 10) 
-			return success;
-
-		books[i]->setCheckedUser(ID);
-		checkedOuts.push_back(books[i]);
-	}
 	success = true;
 	return success;
 }
@@ -49,11 +28,11 @@ bool User::rentBook(vector<Book*> books) {
 bool User::returnBook(unsigned int bookId) {
 	bool success = false;
 
-	for (int i = 0; i < checkedOuts.capacity(); ++i) {
+	for (int i = 0; i < checkedOuts.size(); ++i) {
 		if (checkedOuts[i]->getID() == bookId) {
 			checkedOuts[i]->clearChecked();
 			checkedOuts[i]->clearRenewed();
-			checkedOuts.erase(checkedOuts.begin()+i);
+			checkedOuts[i] = nullptr;
 			success = true;
 			return success;
 		}
@@ -61,12 +40,41 @@ bool User::returnBook(unsigned int bookId) {
 	return success;
 }
 
-void User::displayBooks() {
-	int c = 1;
-	for (vector<Book*>::iterator it = checkedOuts.begin(); it != checkedOuts.end(); ++it) {
-		cout << "\t" << c << ". ";
-		(*it)->display();
-		c++;
+void User::returnAll() {
+	for (int i = 0; i < checkedOuts.size(); ++i) {
+		cout << "\""<< checkedOuts[i]->getTitle() << "\" by " << checkedOuts[i]->getAuthor() 
+		     << " (BookID# " << checkedOuts[i]->getID() << ") force returned." << endl;
+		checkedOuts[i]->clearChecked();
+		checkedOuts[i]->clearRenewed();
+		checkedOuts[i] = nullptr;
+	}
+}
+
+void User::renewBook() {
+	int renewed = 0;
+	int i = 1;
+
+	for (vector<Book*>::iterator it=checkedOuts.begin(); it!=checkedOuts.end(); ++it) {
+		if (!((*it)->getNumRenewed() >= 2))
+			renewed++;
+		if ((*it)->isOverdue()) {
+			cout << "Account has books overdue." << endl;
+			return;
+		}
+	}
+	cout << renewed << " of " << numCheckout << " books successfully renewed." << endl;
+	for (vector<Book*>::iterator it=checkedOuts.begin(); it!=checkedOuts.end(); ++it) {
+		string message;
+		if (!((*it)->getNumRenewed() >= 2)) {
+			(*it)->renew();
+			message = "Book successfully renewed.\n";
+		} 
+		else 
+			message = "Book already renewed twice.\n";
+
+		cout << "\t" << i << ". " << endl;
+		(*it)->displayDetail(true);
+		i++;
 	}
 }
 
@@ -87,6 +95,15 @@ void User::displayDetail() {
 	for (vector<Book*>::iterator it = checkedOuts.begin(); it != checkedOuts.end(); ++it) {
 		cout << "\t" << c << "." << endl;
 		(*it)->displayDetail(true);
+		c++;
+	}
+}
+
+void User::displayBooks() {
+	int c = 1;
+	for (vector<Book*>::iterator it = checkedOuts.begin(); it != checkedOuts.end(); ++it) {
+		cout << "\t" << c << ". ";
+		(*it)->display();
 		c++;
 	}
 }

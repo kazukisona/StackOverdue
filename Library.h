@@ -22,21 +22,19 @@ public:
 
 	// other
 	void browseAllBooks() { warehouse.displayAll();} // implemented
-	void browseBooks(string criteria) { warehouse.sortBooks(criteria);}
+	void browseBooks(string criteria) { warehouse.sortBooks(criteria);} // implemented
 	void searchBooks(string criteria, string phrase) {warehouse.searchBooks(criteria, phrase);}
 	void browseAllAccounts() { accounts.displayAll();} // implemented
-	void browseAccounts(string criteria) { accounts.sortAccounts(criteria);}
-	void findBook(unsigned int bookId) {Book* b=warehouse.getBook(bookId); b->displayDetail();}
-	void findAccount(unsigned int userId) {User* u=accounts.getUser(userId); u->displayDetail();}
-	bool checkOut(unsigned int userId, unsigned int bookId);
-	bool renewBook(unsigned int userId);
+	void browseAccounts(string criteria) { accounts.sortAccounts(criteria);} // implemented
+	void findBook(unsigned int bookId) {Book* b=warehouse.getBook(bookId); b->displayDetail();} // implemented
+	void findAccount(unsigned int userId) {User* u=accounts.getUser(userId); u->displayDetail();} // implemented
+	void checkOut(unsigned int userId, unsigned int bookId); // implemented
+	void renewBook(unsigned int userId);
 	bool returnBook(unsigned int bookId);
 	bool addBook(Book& book) { return warehouse.addBook(book);} // implemented
 	bool addBook(string newTitle, string newAuthor, string newGenre, unsigned int newPop);
-	bool removeBook();
-	bool addAccount(User& newUser) { return accounts.addUser(newUser);} // implemented
 	bool addAccount(string newName);
-	bool removeAccount();
+	bool removeAccount(unsigned int userId) { return accounts.delUser(userId);}
 	void importBooks(ifstream& newBooks);
 	void importAccounts(ifstream& newAccounts);
 

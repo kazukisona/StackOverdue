@@ -22,13 +22,11 @@ public:
 	// accessor
 	unsigned int getNumBooks() { return numBooks;}; // implemented
 	Book* getBook(unsigned int bookId) { return books[bookId];}
-	unsigned int getSize() { return books.size();} // implemented
 
 	// other
 	bool addBook(Book& newBook);// implemented
 	bool addBooks(vector<Book*>& books);
 	bool delBook(unsigned int bookId);
-	bool delBooks(vector<unsigned int> removedIds);
 	void exportBooks(ofstream& outBooks);
 	void displayBook(unsigned int bookId) { books[bookId]->display();} // implemented
 	void displayAll(); // implemented

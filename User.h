@@ -14,7 +14,6 @@ public:
 	User() {}
 	User(unsigned int newId, string newName) { ID = newId; name = newName; numCheckout=0; overdue=false; numOverdue=0;}
 	User(unsigned int newId, string newName, unsigned int newNumChecked);
-	User(unsigned int newId, string newName, unsigned int newNumChecked, vector<Book*> newCheckedBooks);
 	~User() {}
 
 	// methods
@@ -33,13 +32,13 @@ public:
 
 	// other
 	bool rentBook(Book& book);
-	bool rentBook(vector<Book*> books);
 	bool returnBook(unsigned int bookId);
+	void returnAll();
 	bool isOverdue() { return overdue;} // implemented
-	void renewBook(Book& book) { book.renew();}
-	void displayBooks();
+	void renewBook();
 	void display();
 	void displayDetail();
+	void displayBooks();
 
 private:
 	unsigned int ID;

@@ -9,6 +9,7 @@ using namespace std;
 bool Accounts::addUser(User& newUser) {
 	bool success = false;
 	unsigned int id = newUser.getID();
+	cout << id << endl;
 	users[id] = &newUser; // mapping 
 
 	// increment size
@@ -16,6 +17,21 @@ bool Accounts::addUser(User& newUser) {
 
 	return success;
 }
+
+bool Accounts::delUser(unsigned int delUserId) {
+	for (map<int, User*>::iterator it=users.begin(); it!=users.end(); ++it) {
+		if (it->first == delUserId) {
+			// return all of checkedBooks
+			it->second->returnAll();
+			cout << it->second->getName() << "'s account successfully removed." << endl << endl;
+			delete it->second;
+			users.erase(it); 
+			break;
+		}
+	}
+
+	return true;
+} 
 
 void Accounts::displayAll() {
 	int c = 0;
@@ -27,10 +43,6 @@ void Accounts::displayAll() {
 		}
 		c++;
 	}
-}
-
-void Accounts::displayUser(unsigned int userId) {
-	
 }
 
 void Accounts::sortAccounts(string criteria) {
@@ -70,5 +82,7 @@ void Accounts::sortAccounts(string criteria) {
 		}
 	}
 }
+
+
 
 #endif

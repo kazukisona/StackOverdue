@@ -8,7 +8,7 @@
 class Accounts {
 public:
 	// constructors
-	Accounts() {}
+	Accounts() { numUsers = users.size();}
 	Accounts(ifstream& newUsers) {}
 	~Accounts() {};
 
@@ -17,12 +17,12 @@ public:
 	void setNumUsers(unsigned int newNumUsers) { numUsers = newNumUsers;}; // implemented
 
 	// accessor
-	unsigned int getNumUsers() { return numUsers;}; // implemented
+	unsigned int getNumUsers() { return users.size();}; // implemented
 	User* getUser(unsigned int userId) { return users[userId];}
 
 	// other
 	bool addUser(User& newUser);
-	bool delUser(unsigned int delUserId);
+	bool delUser(unsigned int delUserId); // return all of checkedBooks
 	unsigned int findUser(string criteria);
 	void sortAccounts(string criteria);
 	void displayUser(unsigned int userId);

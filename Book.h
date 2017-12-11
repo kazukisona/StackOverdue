@@ -33,6 +33,7 @@ public:
 	unsigned int getNumRenewed() const { return numRenewed;} // implemented
 	unsigned int getDueDate() const { return dueDate;} // implemented
 	bool isAvailable() const { return available;} // implemented
+	bool isOverdue() const { return overdue;}
 
 	// other
 	void display() const;

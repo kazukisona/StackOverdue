@@ -19,17 +19,14 @@ void StackOverdue::browse() {
 
 void StackOverdue::book() {
 	unsigned int bookid;
-	cout << "Enter the book id." << endl;
-	cout << "> ";
-	cin >> bookid;
+	bookid = askBookID();
 
-	// error handling
 	library.findBook(bookid);
 }
 
 void searchBook() {
 	string criteria, phrase;
-	cout << "Enter the criteria to search by. (title/author)";
+	cout << "Enter the criteria to search by. (title/author)" << endl;
 	cout >> "> ";
 	cin >> criteria;
 
@@ -37,7 +34,7 @@ void searchBook() {
 	cout << "Enter the search phrase.";
 	cin >> phrase;
 	// error handling
-	
+
 	library.searchBooks(criteria, phrase);
 }
 
@@ -52,12 +49,56 @@ void StackOverdue::accounts() {
 
 void StackOverdue::account() {
 	unsigned int userid;
-
-	cout << "Enter the account id." << endl;
-	cout << "> ";
-	cin >> userid;
-	// error handling
+	userid = askUserID();
 	library.findAccount(userid);
+}
+
+void StackOverdue::checkout() {
+	unsigned int userid, bookid;
+	userid = askUserID();
+	bookid = askBookID();
+	library.checkOut(userid, bookid);
+}
+
+void StackOverdue::renewBook() {
+	unsigned int userid;
+	userid = askUserID();
+
+	library.renewBook(userid);
+}
+
+void StackOverdue::addB() {
+	string title, author, genre;
+	cout << "Enter the new book’s title." << endl;
+	cin >> title;
+
+	cout << "Enter the new book’s author." << endl;
+	cin >> author;
+
+	cout << "Enter the new book’s genre." << endl;
+	cin >> genre;
+
+	library.addBook(title, author, genre);
+}
+
+void StackOverdue::removeB() {
+	unsigned int bookId = askBookID();
+
+	library.removeBook(bookId);
+}
+
+void StackOverdue::addA() {
+	string name;
+	cout << "Enter the new user’s name." << endl;
+	cin >> name;
+
+	library.addAccount(name);
+}
+
+void StackOverdue::removeA() {
+	unsigned int usrId = askUserID();
+	
+	library.removeAccount();
 }
 
 void StackOverdue::showHelp() {
@@ -81,4 +122,19 @@ void StackOverdue::showHelp() {
 	cout << "EXIT: Exits the program." << endl;
 }
 
+unsigned int StackOverdue::askBookID() {
+	unsigned int bookid;
+	cout << "Enter the book id." << endl;
+	cout << "> ";
+	cin >> bookid;
+	return bookid;
+}
+
+unsigned int StackOverdue::askUserID() {
+	unsigned int userid;
+	cout << "Enter the account id." << endl;
+	cout << "> ";
+	cin >> userid;
+	return userid;
+}
 #endif

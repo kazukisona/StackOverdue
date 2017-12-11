@@ -7,7 +7,7 @@
 using namespace std;
 
 // implementation
-Book::Book(unsigned int newId, string newTitle, string newAuthor, string newGenre, unsigned int newPop) {
+Book::Book(unsigned int newId, string newTitle, string newAuthor, string newGenre, unsigned int newPop=0) {
 	ID = newId;
 	title = newTitle;
 	author = newAuthor;

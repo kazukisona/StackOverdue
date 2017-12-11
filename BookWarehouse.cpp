@@ -29,6 +29,11 @@ bool BookWarehouse::addBook(Book& newBook) {
 	return success;
 }
 
+bool BookWarehouse::delBook(unsigned int bookId) {
+	books.erase(bookId);
+	return true;
+}
+
 void BookWarehouse::sortBooks(string criteria) {
 	if (criteria == "bookid") {
 		displayAll(); 
