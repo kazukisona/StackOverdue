@@ -29,7 +29,7 @@ void Book::display() const {
 		cout << "CHECKED OUT (AccountID# " << checkedUser << ")." << endl;
 }
 
-void Book::displayDetail(bool space=false) const {
+void Book::displayDetail(bool space) const {
 	string ch;
 	if (!space) ch = ""; else ch = "\t"; 
 	cout << ch << "Title: " << "\"" << title << "\"" << endl;

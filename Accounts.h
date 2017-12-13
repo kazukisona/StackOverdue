@@ -8,16 +8,12 @@
 class Accounts {
 public:
 	// constructors
-	Accounts() { numUsers = users.size();}
+	Accounts() {}
 	Accounts(ifstream& newUsers) {}
 	~Accounts() {};
 
-	// method
-	// mutator
-	void setNumUsers(unsigned int newNumUsers) { numUsers = newNumUsers;}; // implemented
-
 	// accessor
-	unsigned int getNumUsers() { return users.size();}; // implemented
+	unsigned int getNumUsers() { return users.size()-1;}; // implemented
 	User* getUser(unsigned int userId) { return users[userId];}
 
 	// other
@@ -25,11 +21,11 @@ public:
 	bool delUser(unsigned int delUserId); // return all of checkedBooks
 	unsigned int findUser(string criteria);
 	void sortAccounts(string criteria);
-	void displayUser(unsigned int userId);
 	void displayAll();
+	unsigned int getOverdueUsers();
+	bool isThereAccount(unsigned int id);
 
 private:
-	unsigned int numUsers;
 	map<int, User*> users;
 };
 #endif

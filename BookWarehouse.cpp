@@ -8,11 +8,12 @@
 using namespace std;
 
 void BookWarehouse::displayAll() {
+	int i = 1;
 	for (map<int, Book*>::iterator it=books.begin(); it != books.end(); ++it) {
 		if (it->first != 0) {
-			cout << it->first << ". ";
+			cout << i << ". ";
 			it->second->display();
-			cout << endl;
+			i++;
 		}
 	}
 }
@@ -23,14 +24,19 @@ bool BookWarehouse::addBook(Book& newBook) {
 	unsigned int id = newBook.getID();
 	books[id] = &newBook;
 
-	// increment size
-	numBooks++;
-
 	return success;
 }
 
-bool BookWarehouse::delBook(unsigned int bookId) {
-	books.erase(bookId);
+bool BookWarehouse::delBook(unsigned int delBookId) {
+	for (map<int, Book*>::iterator it=books.begin(); it!=books.end(); ++it) {
+		if (it->first == delBookId) {
+			cout << "\"" << it->second->getTitle() << "\" by " << it->second->getAuthor()
+			     << " successfully removed." << endl;
+			delete it->second;
+			books.erase(it); 
+			break;
+		}
+	}
 	return true;
 }
 
@@ -102,6 +108,44 @@ void BookWarehouse::searchBooks(string criteria, string phrase) {
 	} 
 	else
 		cout << "No search results found." << endl;
+}
+
+unsigned int BookWarehouse::getOverdueBooks() {
+	map<int, Book*>::iterator it;
+	unsigned int count = 0;
+	for (it=books.begin(); it != books.end(); ++it) {
+		if (it->second->isOverdue())
+			count++;
+	}
+	return count;
+}
+
+bool BookWarehouse::checkDuplicates(string title, string author) {
+	bool duplicated = false;
+	map<int, Book*>::iterator it;
+
+	for (it=books.begin(); it != books.end(); ++it) {
+		if (it->second->getTitle() == title && it->second->getAuthor() == author) {
+			duplicated = true;
+			break;
+		}
+	}
+	return duplicated;
+}
+
+void BookWarehouse::updateStatus(unsigned int currentTime) {
+	map<int, Book*>::iterator it;
+	for (it = books.begin(); it != books.end(); ++it) {
+		if (it->second->getDueDate() < currentTime)
+			it->second->setOverdue();
+	}
+}
+
+bool BookWarehouse::isThereBook(unsigned int id) {
+	if (books.count(id) > 0)
+		return true;
+	else
+		return false;
 }
 
 #endif

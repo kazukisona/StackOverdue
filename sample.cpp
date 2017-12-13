@@ -9,6 +9,7 @@
 #include "BookWarehouse.cpp"
 #include "Accounts.cpp"
 #include "Library.cpp"
+#include "StackOverdue.cpp"
 
 using namespace std;
 
@@ -46,6 +47,28 @@ int main() {
 
 	library1.removeAccount(18);
 	library1.browseAccounts("accountid");
+	library1.addBook("Computer and Arts", "Graham", "Programming");
+	//library1.browseBooks("bookid");
+	library1.removeBook(170);
+	library1.removeBook(201);
+	//library1.browseAllBooks();
+	//library1.browseAccounts("accountid");
+	library1.checkOut(27, 186);
+	library1.browseAllBooks();
+	library1.updateSystem(1);
+	library1.browseAllBooks();
+	library1.findBook(100);
+	library1.findBook(46);
+	library1.renewBook(11);
+	library1.renewBook(11);
+	library1.updateSystem(4);
+	library1.renewBook(11);
+	library1.browseAccounts("accountid");
+
+	StackOverdue stack = StackOverdue(inputs, fileAccounts);
+
+	stack.showHelp();
+
 	return 0;
 }
 

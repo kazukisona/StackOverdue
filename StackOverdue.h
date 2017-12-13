@@ -8,9 +8,9 @@ using namespace std;
 
 class StackOverdue {
 public:
-	StackOverdue(): systemTime(1), systemStatus(true) {}
+	StackOverdue(): systemTime(1), systemStatus(true) { library = Library();}
 	StackOverdue(ifstream& newBooks, ifstream& newUsers)
-		: systemTime(1), systemStatus(true) {library = Library(newBooks, newUsers);}
+		: systemTime(1), systemStatus(true) {library = Library(newBooks, newUsers); /*library.updateSystem(systemTime);*/}
 	~StackOverdue() {}
 
 	// methods
@@ -38,15 +38,15 @@ public:
 	void time();
 	void systemInfo();
 	void showHelp(); // implemented
-	void export();
+	//void export();
 	void exit() { cout<<"Thank you for using StackOverdue!"<<endl; systemStatus=false;}  // implemented
 
 	// utilities
 	unsigned int askBookID();
 	unsigned int askUserID();
-	unsigned int getTotalBooks();
-	unsigned int getTotalAccounts();
-	bool errorHandler();
+	unsigned int getTotalBooks() { return library.getNumBooks();}
+	unsigned int getTotalAccounts() { return library.getNumUsers();}
+	bool isThereSomething(string target, unsigned int id);
 
 private:
 	unsigned int systemTime;

@@ -6,17 +6,32 @@
 using namespace std;
 
 bool Library::addBook(string newTitle, string newAuthor, string newGenre, unsigned int newPop) {
-	unsigned int newId = warehouse.getNumBooks();
+	unsigned int newId = warehouse.getNumBooks() + 1;
 	Book* nBook = new Book(newId, newTitle, newAuthor, newGenre, newPop);
+
+	cout << "BookID# " << newId << " successfully created." << endl;
 
 	return warehouse.addBook(*nBook);
 }
 
 bool Library::addAccount(string newName) {
-	unsigned int newId = accounts.getNumUsers();
+	unsigned int newId = accounts.getNumUsers() + 1;
 	User* nUser = new User(newId, newName);
 
 	return accounts.addUser(*nUser);
+}
+
+bool Library::removeBook(unsigned int bookId) { 
+	Book* bT = warehouse.getBook(bookId);
+
+	if (!bT->isAvailable()) {
+		unsigned int userid = bT->getCheckedUser();
+		User* uT = accounts.getUser(userid);
+		cout << "Force returning book from AccountID# " << uT->getID() << "." << endl;
+		uT->returnBook(bookId);
+		return warehouse.delBook(bookId);
+	} else 
+		return warehouse.delBook(bookId);
 }
 
 void Library::checkOut(unsigned int userId, unsigned int bookId) {
@@ -25,13 +40,12 @@ void Library::checkOut(unsigned int userId, unsigned int bookId) {
 
 	if (uT->isOverdue()) {
 		cout << "Account has books overdue." << endl << endl;
-	}
-	else if (uT->getNumCheckout() >= 10) {
+	} else if (uT->getNumCheckout() >= 10) {
 		cout << "Account already has 10 books checked out." << endl << endl;
 	} else if (!bT->isAvailable()) {
 		cout << "Book already is checked out." << endl << endl;
-	}
-	else {
+	} else {
+		bT->setDueDate(currentTime+15);
 		uT->rentBook(*bT);
 		cout << "Book successfully checked out." << endl;
 		bT->displayDetail();
@@ -41,6 +55,28 @@ void Library::checkOut(unsigned int userId, unsigned int bookId) {
 void Library::renewBook(unsigned int userId) {
 	User* uT = accounts.getUser(userId);
 	uT->renewBook();
+}
+
+void Library::updateSystem(unsigned int timeAdded) {
+	unsigned int past = currentTime;
+	currentTime += timeAdded;
+	cout << "Travelled " << timeAdded << " days through time (" 
+		 << past << " --> " << currentTime << ")." << endl;
+	
+	warehouse.updateStatus(currentTime);
+}
+
+bool Library::isThereSomething(string target, unsigned int id) {
+	bool existed = true;
+	if (target == "book") {
+		if (!warehouse.isThereBook(id))
+		 	existed = false;
+	}
+	else if (target == "account") {
+		if (!accounts.isThereAccount(id))
+			existed = false;
+	}
+	return existed;
 }
 
 void Library::importBooks(ifstream& newBooks) {
@@ -109,5 +145,4 @@ void Library::importAccounts(ifstream& newAccounts) {
 		accounts.addUser(*tempU);
 	}
 }
-
 #endif

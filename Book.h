@@ -22,6 +22,7 @@ public:
 	void setCheckedUser(unsigned int newUser) { checkedUser = newUser; available = false;} // implemented
 	void setDueDate(unsigned int newDate) { dueDate = newDate;}
 	void setNumRenewed(unsigned int newNumRenew) { numRenewed = newNumRenew;}
+	void setOverdue() { overdue = true;}
 
 	// accessor 
 	int getID() const { return ID;} // implemented
@@ -37,10 +38,9 @@ public:
 
 	// other
 	void display() const;
-	void displayDetail(bool space) const;
-	void clearChecked() { checkedUser = 0; available = true;} // implemented
+	void displayDetail(bool space=false) const;
+	void clearChecked() { checkedUser=0; dueDate=0; available=true; overdue=false; numRenewed=0;} // implemented
 	void incrNumRenewed() { numRenewed++;}// implemented
-	void clearRenewed() { numRenewed = 0;}// implemented
 	void renew() { dueDate += 5; incrNumRenewed();}// implemented
 
 private:

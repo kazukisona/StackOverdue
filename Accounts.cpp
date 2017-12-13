@@ -9,11 +9,7 @@ using namespace std;
 bool Accounts::addUser(User& newUser) {
 	bool success = false;
 	unsigned int id = newUser.getID();
-	cout << id << endl;
 	users[id] = &newUser; // mapping 
-
-	// increment size
-	numUsers++;
 
 	return success;
 }
@@ -29,7 +25,6 @@ bool Accounts::delUser(unsigned int delUserId) {
 			break;
 		}
 	}
-
 	return true;
 } 
 
@@ -39,10 +34,26 @@ void Accounts::displayAll() {
 		if (it->first != 0) {
 			cout << c << ". ";
 			it->second->display();
-			cout << endl;
 		}
 		c++;
 	}
+}
+
+unsigned int Accounts::getOverdueUsers() {
+	map<int, User*>::iterator it;
+	unsigned int count = 0;
+	for (it=users.begin(); it != users.end(); ++it) {
+		if (it->second->isOverdue())
+			count++;
+	}
+	return count;
+}
+
+bool Accounts::isThereAccount(unsigned int id) {
+	if (users.count(id) > 0)
+		return true;
+	else
+		return false;
 }
 
 void Accounts::sortAccounts(string criteria) {
@@ -82,7 +93,5 @@ void Accounts::sortAccounts(string criteria) {
 		}
 	}
 }
-
-
 
 #endif
