@@ -6,6 +6,8 @@
 
 using namespace std;
 
+string toUpper(string str);
+
 int main(int argc, char const *argv[]) {
 	
 	ifstream inputB, inputA;
@@ -58,75 +60,75 @@ int main(int argc, char const *argv[]) {
 		cout << "> ";
 		cin >> command;
 
-		if (command == "BROWSE") {
+		if (toUpper(command) == "BROWSE") {
 			stack.browse();
 			cout << endl;
 		} 
-		else if (command == "BOOK") {
+		else if (toUpper(command) == "BOOK") {
 			stack.book();
 			cout << endl;
 		}
-		else if (command == "SEARCH") {
+		else if (toUpper(command) == "SEARCH") {
 			stack.searchBook();
 			cout << endl;
 		}
-		else if (command == "ACCOUNTS") {
+		else if (toUpper(command) == "ACCOUNTS") {
 			stack.accounts();
 			cout << endl;
 		}
-		else if (command == "ACCOUNT") {
+		else if (toUpper(command) == "ACCOUNT") {
 			stack.account();
 			cout << endl;
 		} 
-		else if (command == "CHECKOUT") {
+		else if (toUpper(command) == "CHECKOUT") {
 			stack.checkout();
 			cout << endl;
 		}
-		else if (command == "RENEW") {
+		else if (toUpper(command) == "RENEW") {
 			stack.renewBook();
 			cout << endl;
 		}
-		else if (command == "RETURN") {
+		else if (toUpper(command) == "RETURN") {
 			stack.returnBook();
 			cout << endl;
 		}
-		else if (command == "RECOMMEND") {
+		else if (toUpper(command) == "RECOMMEND") {
 			stack.recommend();
 			cout << endl;
 		}
-		else if (command == "ADDB") {
+		else if (toUpper(command) == "ADDB") {
 			stack.addB();
 			cout << endl;
 		}
-		else if (command == "REMOVEB") {
+		else if (toUpper(command) == "REMOVEB") {
 			stack.removeB();
 			cout << endl;
 		}
-		else if (command == "ADDA") {
+		else if (toUpper(command) == "ADDA") {
 			stack.addA();
 			cout << endl;
 		}
-		else if (command == "REMOVEA") {
+		else if (toUpper(command) == "REMOVEA") {
 			stack.removeA();
 			cout << endl;
 		}
-		else if (command == "SYSTEM") {
+		else if (toUpper(command) == "SYSTEM") {
 			stack.systemInfo();
 			cout << endl;
 		}
-		else if (command == "TIME") {
+		else if (toUpper(command) == "TIME") {
 			stack.time();
 			cout << endl;
 		}
-		else if (command == "EXPORT") {
+		else if (toUpper(command) == "EXPORT") {
 			stack.exportLibrary();
 			cout << endl;
 		}
-		else if (command == "HELP") {
+		else if (toUpper(command) == "HELP") {
 			stack.showHelp();
 			cout << endl;
 		}
-		else if (command == "EXIT") {
+		else if (toUpper(command) == "EXIT") {
 			stack.exit();
 		}
 		else {
@@ -138,6 +140,14 @@ int main(int argc, char const *argv[]) {
 	}
 
 	return 0;
+}
+
+string toUpper(string str) {
+	string lowercase = "";
+	for (int i = 0; i < str.length(); ++i) {
+		lowercase += toupper(str[i]);
+	}
+	return lowercase;
 }
 
 #endif
