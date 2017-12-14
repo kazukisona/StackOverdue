@@ -4,7 +4,9 @@
 #include <iostream>
 #include <fstream>
 #include <map>
+#include <deque>
 #include "Book.h"
+#include "User.h"
 
 using namespace std;
 
@@ -20,7 +22,7 @@ public:
 	void setNumBooks(unsigned int newNumBooks) { numBooks = newNumBooks;}; // implemented
 
 	// accessor
-	unsigned int getNumBooks() { return books.size()-1;}; // implemented
+	unsigned int getNumBooks();
 	Book* getBook(unsigned int bookId) { return books[bookId];}
 
 	// other
@@ -32,10 +34,12 @@ public:
 	void displayAll(); // implemented
 	void sortBooks(string criteria);
 	void searchBooks(string criteria, string phrase);
+	void recommend(User& user);
 	unsigned int getOverdueBooks();
 	void updateStatus(unsigned int currentTime);
 	bool checkDuplicates(string title, string author);
 	bool isThereBook(unsigned int id);
+	void exportBook(ofstream& output);
 
 private:
 	unsigned int numBooks;

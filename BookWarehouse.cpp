@@ -2,10 +2,19 @@
 #define BOOKWAREHOUSE_CPP
 
 #include <iostream>
-#include <deque>
+#include <string>
 #include "BookWarehouse.h"
 
 using namespace std;
+
+unsigned int BookWarehouse::getNumBooks() {
+	int numBooks = 0;
+	for (map<int, Book*>::iterator it = books.begin(); it != books.end(); ++it) {
+		if (books.count(it->first) && it->first != 0)
+			numBooks++;
+	}
+	return numBooks;
+}
 
 void BookWarehouse::displayAll() {
 	int i = 1;
@@ -32,7 +41,7 @@ bool BookWarehouse::delBook(unsigned int delBookId) {
 		if (it->first == delBookId) {
 			cout << "\"" << it->second->getTitle() << "\" by " << it->second->getAuthor()
 			     << " successfully removed." << endl;
-			delete it->second;
+			delete it->second; // delete pointer 
 			books.erase(it); 
 			break;
 		}
@@ -63,19 +72,75 @@ void BookWarehouse::sortBooks(string criteria) {
 			c++;
 		}
 	}
-	else {
+	else if (criteria == "popularity") { // popularity
 		multimap<int, Book*> sorted;
-		multimap<int, Book*>::iterator sortedIt;
 		for (map<int, Book*>::iterator it=books.begin(); it!=books.end(); ++it) {
 			unsigned int key = it->second->getPopularity();
 			if (it->first != 0)
 				sorted.insert(pair<int, Book*>(key, it->second));
 		}
 		int c = 1;
-		for (sortedIt=sorted.begin(); sortedIt != sorted.end(); ++sortedIt) {
+		for (multimap<int, Book*>::iterator sortedIt=sorted.begin(); sortedIt != sorted.end(); ++sortedIt) {
 			cout << c << ". ";
 			sortedIt->second->display();
 			c++;
+		}
+	}
+	else {
+		cout << "Invalid value." << endl;
+		return;
+	}
+}
+
+void BookWarehouse::recommend(User& user) {
+
+	if (user.getNumHistory() == 0) {
+		cout << "No available recommendations." << endl;
+		return;
+	}
+
+	multimap<int, Book*> sorted;
+	for (map<int, Book*>::iterator it=books.begin(); it!=books.end(); ++it) {
+		unsigned int key = it->second->getPopularity();
+		if (it->first != 0)
+			sorted.insert(pair<int, Book*>(key, it->second));
+	}
+	
+	int c_first_genre = 0;
+	cout << "You love " << user.getFirstGenre() << ". We recommend: " << endl;
+	for (multimap<int, Book*>::iterator sortedIt=sorted.begin(); sortedIt != sorted.end(); ++sortedIt) {
+		string key = sortedIt->second->getGenre();
+		if (!user.alreadyRead(sortedIt->second->getID()) && key == user.getFirstGenre() && c_first_genre < 2) {
+			cout << (c_first_genre+1) << ". " << endl;
+			sortedIt->second->display();
+			c_first_genre++;
+		} else if (c_first_genre > 1) {
+			break;
+		}
+	}
+
+	int c_second_genre = 0;
+	
+	if (!(user.getSecondGenre() == ""))
+		cout << "You love " << user.getSecondGenre() << ". We recommend: " << endl;
+
+	for (multimap<int, Book*>::iterator sortedIt=sorted.begin(); sortedIt != sorted.end(); ++sortedIt) {
+		string key = sortedIt->second->getGenre();
+		if (!user.alreadyRead(sortedIt->second->getID()) && key == user.getSecondGenre() && c_second_genre < 2) {
+			cout << (c_second_genre+1) << ". " << endl;
+			sortedIt->second->display();
+			c_second_genre++;
+		} else if (c_second_genre > 1) {
+			break;
+		}
+	}
+
+	cout << "You love " << user.getFavAuthor() << ". We recommend: " << endl;
+	for (multimap<int, Book*>::iterator sortedIt=sorted.begin(); sortedIt != sorted.end(); ++sortedIt) {
+		string key = sortedIt->second->getAuthor();
+		if (!user.alreadyRead(sortedIt->second->getID()) && key == user.getFavAuthor()) {
+			sortedIt->second->display();
+			break;
 		}
 	}
 }
@@ -92,10 +157,14 @@ void BookWarehouse::searchBooks(string criteria, string phrase) {
 			if (title.find(phrase) != string::npos) 
 				results.push_back(it->second);
 		}
-		else {
+		else if (criteria == "author"){
 			author = it->second->getAuthor();
 			if (author.find(phrase) != string::npos) 
 				results.push_back(it->second);
+		}
+		else {
+			cout << "Invalid value." << endl;
+			return;
 		}
 	}
 	// display the results
@@ -146,6 +215,16 @@ bool BookWarehouse::isThereBook(unsigned int id) {
 		return true;
 	else
 		return false;
+}
+
+void BookWarehouse::exportBook(ofstream& output) {
+	output << to_string(getNumBooks()) << "\n";
+
+	for (map<int, Book*>::iterator it=books.begin(); it!=books.end(); ++it) {
+		if (it->first != 0) {
+			output << it->second->outputFormat();
+		}
+	}
 }
 
 #endif

@@ -1,18 +1,52 @@
+#ifndef MAIN_CPP
+#define MAIN_CPP
 #include <iostream>
-#include "StackOverdue.cpp"
-#include "Library.cpp"
-#include "BookWarehouse.cpp"
-#include "Accounts.cpp"
-#include "Book.cpp"
-#include "User.cpp"
+#include <fstream>
+#include "StackOverdue.h"
 
 using namespace std;
 
 int main(int argc, char const *argv[]) {
 	
 	ifstream inputB, inputA;
-	inputB.open("data/library.small/books.data");
-	inputA.open("data/library.small/accounts.data");
+
+	if (argc != 3) {
+		if (argv[1]) {
+			inputB.open(argv[1]);
+
+			if (inputB.fail()) {
+				cout << "Could not find file \"" << argv[1] << "\". Skipping." << endl;
+				inputB.open("blank.book.data");
+			}
+			else
+				cout << "Loading books from \"" << argv[1] << "\"." << endl; 
+		}
+		else {
+			cout << "No books provided." << endl;
+			cout << "No accounts provided." << endl;
+			inputB.open("blank.book.data");
+			inputA.open("blank.account.data");
+		}	
+	}
+	else {
+		inputB.open(argv[1]);
+		if (inputB.fail()) {
+			cout << "Could not find file \"" << argv[1] << "\". Skipping." << endl;
+			inputB.open("blank.book.data"); // dummy data
+		}
+		else {
+			cout << "Loading books from \"" << argv[1] << "\"." << endl;
+		}
+
+		inputA.open(argv[2]);
+		if (inputA.fail()) {
+			cout << "Could not find file \"" << argv[2] << "\". Skipping." << endl;
+			inputA.open("blank.account.data"); // dummy data
+		}
+		else {
+			cout << "Loading accounts from \"" << argv[2] << "\"." << endl;
+		}
+	}
 
 	StackOverdue stack = StackOverdue(inputB, inputA);
 
@@ -53,11 +87,12 @@ int main(int argc, char const *argv[]) {
 			cout << endl;
 		}
 		else if (command == "RETURN") {
-			//stack.returnBook();
-
+			stack.returnBook();
+			cout << endl;
 		}
 		else if (command == "RECOMMEND") {
-			
+			stack.recommend();
+			cout << endl;
 		}
 		else if (command == "ADDB") {
 			stack.addB();
@@ -84,7 +119,8 @@ int main(int argc, char const *argv[]) {
 			cout << endl;
 		}
 		else if (command == "EXPORT") {
-			
+			stack.exportLibrary();
+			cout << endl;
 		}
 		else if (command == "HELP") {
 			stack.showHelp();
@@ -94,10 +130,14 @@ int main(int argc, char const *argv[]) {
 			stack.exit();
 		}
 		else {
-			// if no valid inputs, do nothing
+			// if no valid inputs
+			cout << "Invalid command." << endl;
+			cout << endl;
 			// and take another command 
 		}
 	}
 
 	return 0;
 }
+
+#endif

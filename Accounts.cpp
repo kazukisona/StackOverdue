@@ -2,9 +2,21 @@
 #define ACCOUNTS_CPP
 
 #include <iostream>
+#include <fstream>
+#include <string>
 #include "Accounts.h"
 
 using namespace std;
+
+unsigned int Accounts::getNumUsers() {
+	unsigned int numUsers = 0;
+
+	for (map<int, User*>::iterator it = users.begin(); it != users.end(); ++it) {
+		if (users.count(it->first) && it->first != 0)
+			numUsers++;
+	}
+	return numUsers;
+}
 
 bool Accounts::addUser(User& newUser) {
 	bool success = false;
@@ -20,7 +32,7 @@ bool Accounts::delUser(unsigned int delUserId) {
 			// return all of checkedBooks
 			it->second->returnAll();
 			cout << it->second->getName() << "'s account successfully removed." << endl << endl;
-			delete it->second;
+			delete it->second; // delete pointer
 			users.erase(it); 
 			break;
 		}
@@ -56,6 +68,14 @@ bool Accounts::isThereAccount(unsigned int id) {
 		return false;
 }
 
+void Accounts::updateStatus() {
+	for (map<int, User*>::iterator it = users.begin(); it != users.end(); ++it) {
+		if (it->second->getNumOverdue() > 0) {
+			it->second->setOverdue(true);
+		}
+	}
+}	
+
 void Accounts::sortAccounts(string criteria) {
 	if (criteria == "accountid") {
 		displayAll(); 
@@ -76,7 +96,7 @@ void Accounts::sortAccounts(string criteria) {
 			sortedIt->second->display();
 			c++;
 		}
-	} else {
+	} else if (criteria == "accountid" || criteria == "checkouts") {
 		multimap<int, User*> sorted;
 		multimap<int, User*>::iterator sortedIt;
 		for (map<int, User*>::iterator it=users.begin(); it!=users.end(); ++it) {
@@ -91,6 +111,18 @@ void Accounts::sortAccounts(string criteria) {
 			rit->second->display();
 			c++;
 		}
+	} else {
+		cout << "Invalid value." << endl;
+		return;
+	}
+}
+
+void Accounts::exportAccounts(ofstream& output) {
+	output << to_string(getNumUsers()) << "\n";
+
+	for (map<int, User*>::iterator it=users.begin(); it != users.end(); ++it) {
+		if (it->first != 0)
+			output << it->second->outputFormat();
 	}
 }
 

@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <map>
 #include "Book.h"
 
 using namespace std;
@@ -25,9 +26,8 @@ public:
 	// accessor
 	unsigned int getID() { return ID;} // implemented
 	string getName() { return name;} // implemented
-	vector<Book*> getCheckedouts() { return checkedOuts;} // implemented
-	unsigned int getNumCheckout() { return numCheckout;} // implemented
 	unsigned int getNumOverdue();
+	unsigned int getNumCheckout() { return numCheckout;} // implemented
 
 	// other
 	bool rentBook(Book& book);
@@ -38,14 +38,26 @@ public:
 	void display();
 	void displayDetail();
 	void displayBooks();
+	bool alreadyRead(unsigned int bookid);
+	string getFirstGenre() { return firstG;}
+	string getSecondGenre() { return secondG;}
+	string getFavAuthor() { return favAuthor;}
+	void setFavGenre();
+	void setFavAuthor();
+	unsigned int getNumHistory() { return history.size();}
+	string outputFormat();
 
 private:
 	unsigned int ID;
 	string name;
 	vector<Book*> checkedOuts;
 	unsigned int numCheckout;
-	bool overdue;
 	unsigned int numOverdue;
+	bool overdue;
+	map<int, Book*> history;
+	string favAuthor;
+	string firstG;
+	string secondG;
 };
 
 #endif

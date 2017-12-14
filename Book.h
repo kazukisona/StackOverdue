@@ -1,7 +1,7 @@
 #ifndef BOOK_H
 #define BOOK_H
 #include <iostream>
-#include <set>
+#include <map>
 
 using namespace std;
 
@@ -18,7 +18,6 @@ public:
 	void setTitle(string newTitle) { title = newTitle;} // implemented
 	void setAuthor(string newAuthor) { author = newAuthor;} // implemented
 	void setGenre(string newGenre) { genre = newGenre;} // implemented
-	void incrPopularity() { popularity++;} // implemented
 	void setCheckedUser(unsigned int newUser) { checkedUser = newUser; available = false;} // implemented
 	void setDueDate(unsigned int newDate) { dueDate = newDate;}
 	void setNumRenewed(unsigned int newNumRenew) { numRenewed = newNumRenew;}
@@ -42,6 +41,10 @@ public:
 	void clearChecked() { checkedUser=0; dueDate=0; available=true; overdue=false; numRenewed=0;} // implemented
 	void incrNumRenewed() { numRenewed++;}// implemented
 	void renew() { dueDate += 5; incrNumRenewed();}// implemented
+	bool alreadyChecked(unsigned int userid); 
+	void addHistory(unsigned int userid);
+	void incrPopularity() { popularity++;} // implemented
+	string outputFormat();
 
 private:
 	unsigned int ID;
@@ -54,11 +57,7 @@ private:
 	unsigned int dueDate;
 	bool available;
 	bool overdue;
-
-	// set for unique user
-	// set<int, bool> histories;
+	map<int, int> history;
 };
-
-// insert operator overloading << friend function
 
 #endif

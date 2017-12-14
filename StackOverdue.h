@@ -9,8 +9,8 @@ using namespace std;
 class StackOverdue {
 public:
 	StackOverdue(): systemTime(1), systemStatus(true) { library = Library();}
-	StackOverdue(ifstream& newBooks, ifstream& newUsers)
-		: systemTime(1), systemStatus(true) {library = Library(newBooks, newUsers); /*library.updateSystem(systemTime);*/}
+	StackOverdue(ifstream& newBooks, ifstream& newUsers): 
+			systemTime(1), systemStatus(true) {library = Library(newBooks, newUsers);}
 	~StackOverdue() {}
 
 	// methods
@@ -36,6 +36,7 @@ public:
 	void addA();
 	void removeA();
 	void time();
+	void exportLibrary();
 	void systemInfo();
 	void showHelp(); // implemented
 	//void export();

@@ -1,12 +1,16 @@
 #ifndef STACKOVERDUE_CPP
 #define STACKOVERDUE_CPP
-
 #include <iostream>
 #include "StackOverdue.h"
 
 using namespace std;
 
 void StackOverdue::browse() {
+	if (getTotalBooks() == 0 || getTotalBooks() == 4294967295) {
+		cout << "No books in your library." << endl;
+		return;
+	}
+
 	string criteria;
 	cout << "Enter the criteria to sort by. (title/author/genre/bookid/popularity)" << endl;
 	cout << "> ";
@@ -16,11 +20,15 @@ void StackOverdue::browse() {
 }
 
 void StackOverdue::book() {
-	unsigned int bookid;
-	bookid = askBookID();
+	if (getTotalBooks() == 0) {
+		cout << "No books in your library." << endl;
+		return;
+	}
+
+	unsigned int bookid = askBookID();
 
 	if (!isThereSomething("book", bookid)) {
-		cout << "Couldn't find the book with the ID in the Library." << endl;
+		cout << "BookID# " << bookid << " not found." << endl;
 		return;
 	}
 
@@ -28,6 +36,11 @@ void StackOverdue::book() {
 }
 
 void StackOverdue::searchBook() {
+	if (getTotalBooks() == 0) {
+		cout << "No books in your library." << endl;
+		return;
+	}
+
 	string criteria, phrase;
 	cout << "Enter the criteria to search by. (title/author)" << endl;
 	cout << "> ";
@@ -36,12 +49,16 @@ void StackOverdue::searchBook() {
 	cout << "Enter the search phrase." << endl;
 	cout << "> ";
 	cin >> phrase;
-	// error handling
 
 	library.searchBooks(criteria, phrase);
 }
 
 void StackOverdue::accounts() {
+	if (getTotalAccounts() == 0) {
+		cout << "No accounts in your library." << endl;
+		return;
+	}
+
 	string criteria;
 	cout << "Enter the criteria to sort by. (name/accountid/checkouts)" << endl;
 	cout << "> ";
@@ -51,11 +68,15 @@ void StackOverdue::accounts() {
 }
 
 void StackOverdue::account() {
-	unsigned int userid;
-	userid = askUserID();
+	if (getTotalAccounts() == 0) {
+		cout << "No accounts in your library." << endl;
+		return;
+	}
+
+	unsigned int userid = askUserID();
 
 	if (!isThereSomething("account", userid)) {
-		cout << "Couldn't find the account with the ID in the Library." << endl;
+		cout << "AccountID# " << userid << " not found." << endl;
 		return;
 	}
 
@@ -63,18 +84,25 @@ void StackOverdue::account() {
 }
 
 void StackOverdue::checkout() {
-	unsigned int userid, bookid;
-	userid = askUserID();
-
-	if (!isThereSomething("account", userid)) {
-		cout << "Couldn't find the account with the ID in the Library." << endl;
+	if (getTotalAccounts() == 0) {
+		cout << "No accounts in your library." << endl;
 		return;
 	}
 
-	bookid = askBookID();
+	unsigned int userid = askUserID();
+	if (!isThereSomething("account", userid)) {
+		cout << "AccountID# " << userid << " not found." << endl;
+		return;
+	}
 
+	if (getTotalBooks() == 0) {
+		cout << "No books in your library." << endl;
+		return;
+	}
+
+	unsigned int bookid = askBookID();
 	if (!isThereSomething("book", bookid)) {
-		cout << "Couldn't find the book with the ID in the Library." << endl;
+		cout << "BookID# " << bookid << " not found." << endl;
 		return;
 	}
 
@@ -82,15 +110,37 @@ void StackOverdue::checkout() {
 }
 
 void StackOverdue::renewBook() {
-	unsigned int userid;
-	userid = askUserID();
+	unsigned int userid = askUserID();
 
 	if (!isThereSomething("account", userid)) {
-		cout << "Couldn't find the account with the ID in the Library." << endl;
+		cout << "AccountID# " << userid << " not found." << endl;
 		return;
 	}
 
 	library.renewBook(userid);
+}
+
+void StackOverdue::returnBook() {
+	unsigned int bookid;
+	bookid = askBookID();
+
+	if (!isThereSomething("book", bookid)) {
+		cout << "BookID# " << bookid << " not found." << endl;
+		return;
+	}
+
+	library.returnBook(bookid);
+}
+
+void StackOverdue::recommend() {
+	unsigned int userid = askUserID();
+
+	if (!isThereSomething("account", userid)) {
+		cout << "AccountID# " << userid << " not found." << endl;
+		return;
+	}
+
+	library.recommendation(userid);
 }
 
 void StackOverdue::addB() {
@@ -117,17 +167,18 @@ void StackOverdue::addB() {
 }
 
 void StackOverdue::removeB() {
-	unsigned int bookId = askBookID();
-
-	if (bookId > getTotalBooks())
-		return;
-
-	if (!isThereSomething("book", bookId)) {
-		cout << "Couldn't find the book with the ID in the Library." << endl;
+	if (getTotalBooks() == 0 || getTotalBooks() == 4294967295) {
+		cout << "No books in your library." << endl;
 		return;
 	}
 
-	library.removeBook(bookId);
+	unsigned int bookid = askBookID();	
+	if (!isThereSomething("book", bookid)) {
+		cout << "BookID# " << bookid << " not found." << endl;
+		return;
+	}
+
+	library.removeBook(bookid);
 }
 
 void StackOverdue::addA() {
@@ -141,17 +192,19 @@ void StackOverdue::addA() {
 }
 
 void StackOverdue::removeA() {
-	unsigned int usrId = askUserID();
-
-	if (usrId > getTotalAccounts())
-		return;
-
-	if (!isThereSomething("account", usrId)) {
-		cout << "Couldn't find the account with the ID in the Library." << endl;
+	
+	if (getTotalAccounts() == 0 || getTotalAccounts() == 4294967295) {
+		cout << "No accounts in your library." << endl;
 		return;
 	}
 
-	library.removeAccount(usrId);
+	unsigned int userid = askUserID();
+	if (!isThereSomething("account", userid)) {
+		cout << "AccountID# " << userid << " not found." << endl;
+		return;
+	}
+
+	library.removeAccount(userid);
 }
 
 void StackOverdue::time() {
@@ -160,7 +213,37 @@ void StackOverdue::time() {
 	cout << "> ";
 	cin >> day;
 
+	if (cin.fail()) {
+		cout << "Invalid value." << endl;
+		cin.clear();
+		return;
+	}
+
+	systemTime += day;
+
 	library.updateSystem(day);
+}
+
+void StackOverdue::exportLibrary() {
+	ofstream bookOutput, accountOutput;
+	string nameBookFile, nameAccountFile;
+
+	cout << "Enter the name for the books file. (This may overwrite a file) " << endl;
+	cout << "> ";
+	cin >> nameBookFile;
+
+	cout << "Enter the name for the accounts file. (This may overwrite a file) " << endl;
+	cout << "> ";
+	cin >> nameAccountFile;
+
+	bookOutput.open(nameBookFile);
+	accountOutput.open(nameAccountFile);
+
+	library.exportBook(bookOutput);
+	library.exportAccount(accountOutput);
+
+	cout << "Books data successfully exported to \"" << nameBookFile << "\"." << endl;
+	cout << "Accounts data successfully exported to \"" << nameAccountFile << "\"." << endl;
 }
 
 void StackOverdue::systemInfo() {
@@ -197,6 +280,13 @@ unsigned int StackOverdue::askBookID() {
 	cout << "Enter the book id." << endl;
 	cout << "> ";
 	cin >> bookid;
+
+	if (cin.fail()) {
+		cout << "Invalid value." << endl;
+		cin.clear();
+		return 0;
+	}
+
 	return bookid;
 }
 
@@ -205,6 +295,13 @@ unsigned int StackOverdue::askUserID() {
 	cout << "Enter the account id." << endl;
 	cout << "> ";
 	cin >> userid;
+
+	if (cin.fail()) {
+		cout << "Invalid value." << endl;
+		cin.clear();
+		return 0;
+	}
+
 	return userid;
 }
 

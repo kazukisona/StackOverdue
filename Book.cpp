@@ -49,4 +49,24 @@ void Book::displayDetail(bool space) const {
 	}
 }
 
+bool Book::alreadyChecked(unsigned int userid) {
+	bool checked = false;
+	if (history.count(userid) > 0) {
+		checked = true;
+	}
+	return checked;
+}
+
+void Book::addHistory(unsigned int userid) {
+	history[userid] += 1;
+}
+
+string Book::outputFormat() {
+	string output;
+	string bar = "|";
+
+	output = to_string(ID) + bar + title + bar + author + bar + genre + bar + to_string(popularity) + "\n";
+	return output;
+}
+
 #endif

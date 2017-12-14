@@ -11,6 +11,9 @@ User::User(unsigned int newId, string newName, unsigned int newNumChecked) {
 	name = newName;
 	numCheckout = newNumChecked;
 	overdue = false;
+	favAuthor = "";
+	firstG = "";
+	secondG = "";
 }
 
 unsigned int User::getNumOverdue() {
@@ -27,8 +30,21 @@ bool User::rentBook(Book& book) {
 	bool success = false;
 	if (checkedOuts.capacity() >= 10 || overdue) 
 		return success;
+
 	book.setCheckedUser(ID);
 	checkedOuts.push_back(&book);
+
+	if (!alreadyRead(book.getID()))
+		history[book.getID()] = &book;
+
+	if (!book.alreadyChecked(ID)) {
+		book.addHistory(ID);
+		book.incrPopularity();
+	}
+
+	setFavGenre();
+	setFavAuthor();
+
 	success = true;
 	return success;
 }
@@ -115,6 +131,69 @@ void User::displayBooks() {
 		(*it)->display();
 		c++;
 	}
+}
+
+bool User::alreadyRead(unsigned int bookid) {
+	bool read = false;
+
+	if (history.count(bookid) > 0)
+		read = true;
+	return read;
+}
+
+void User::setFavGenre() {
+	multimap<string, Book*> favs;
+	string key = "";
+	for (map<int, Book*>::iterator it = history.begin(); it != history.end(); ++it) {
+		key = it->second->getGenre();
+		favs.insert(pair<string, Book*>(key, it->second));
+	}
+
+	multimap<int, string> tops;
+	for (multimap<string, Book*>::iterator it = favs.begin(); it != favs.end(); ++it) {
+		tops.insert(pair<int, string>(favs.count(it->first), it->first));
+	}
+		
+	multimap<int, string>::reverse_iterator rit = tops.rbegin();
+	firstG = rit->second;
+
+	for (rit=tops.rbegin(); rit!=tops.rend(); ++rit) {
+		if (rit->second != firstG) {
+			secondG = rit->second;
+			break;
+		}
+	}
+}
+
+void User::setFavAuthor() {
+	multimap<string, Book*> favs;
+	string key = "";
+	for (map<int, Book*>::iterator it = history.begin(); it != history.end(); ++it) {
+		key = it->second->getAuthor();
+		favs.insert(pair<string, Book*>(key, it->second));
+	}
+
+	multimap<int, string> tops;
+	for (multimap<string, Book*>::iterator it = favs.begin(); it != favs.end(); ++it) {
+		tops.insert(pair<int, string>(favs.count(it->first), it->first));
+	}
+
+	multimap<int, string>::reverse_iterator rit = tops.rbegin();
+	favAuthor = rit->second;
+}
+
+string User::outputFormat() {
+	string output;
+	string bar = "|";
+
+	output = to_string(ID) + bar + name + bar + to_string(getNumCheckout()) + "\n";
+	for (int i = 0; i < checkedOuts.size(); ++i) {
+		output += to_string(checkedOuts[i]->getID()) + bar;
+		output += to_string(checkedOuts[i]->getDueDate()) + bar;
+		output += to_string(checkedOuts[i]->getNumRenewed()) + "\n";
+	}
+
+	return output;
 }
 
 #endif

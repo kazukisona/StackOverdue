@@ -57,6 +57,37 @@ void Library::renewBook(unsigned int userId) {
 	uT->renewBook();
 }
 
+bool Library::returnBook(unsigned int bookId) {
+	bool success = false;
+	Book* bT = warehouse.getBook(bookId);
+
+	if (bT->isAvailable()) {
+		cout << "Book is not currently checked out." << endl;
+		return success;
+	}
+
+	unsigned int userid = bT->getCheckedUser();
+	int dueDate = bT->getDueDate();
+	User* uT = accounts.getUser(userid);
+	success = uT->returnBook(bookId);
+
+	cout << "Book successfully returned by AccountID# " << uT->getID();
+
+	if (currentTime <= dueDate) {
+		cout << " (on time)." << endl;
+	}
+	else
+		cout << " (overdue by " << (currentTime-dueDate) << " days)." << endl;
+
+	return success;
+}
+
+void Library::recommendation(unsigned int userid) {
+	User* uT = accounts.getUser(userid);
+
+	warehouse.recommend(*uT);
+}
+
 void Library::updateSystem(unsigned int timeAdded) {
 	unsigned int past = currentTime;
 	currentTime += timeAdded;
@@ -64,6 +95,7 @@ void Library::updateSystem(unsigned int timeAdded) {
 		 << past << " --> " << currentTime << ")." << endl;
 	
 	warehouse.updateStatus(currentTime);
+	accounts.updateStatus();
 }
 
 bool Library::isThereSomething(string target, unsigned int id) {

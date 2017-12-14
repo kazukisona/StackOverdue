@@ -13,7 +13,7 @@ public:
 	~Accounts() {};
 
 	// accessor
-	unsigned int getNumUsers() { return users.size()-1;}; // implemented
+	unsigned int getNumUsers(); // implemented
 	User* getUser(unsigned int userId) { return users[userId];}
 
 	// other
@@ -24,6 +24,8 @@ public:
 	void displayAll();
 	unsigned int getOverdueUsers();
 	bool isThereAccount(unsigned int id);
+	void updateStatus();
+	void exportAccounts(ofstream& output);
 
 private:
 	map<int, User*> users;
