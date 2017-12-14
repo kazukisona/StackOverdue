@@ -1,3 +1,11 @@
+/*
+Author: Kazuki Sona
+Date: 14th, Dec
+Class: CSCI23500
+Instructor: Simon Ayzman
+Prgrram: User.h
+*/
+
 #ifndef USER_H
 #define USER_H
 
@@ -19,33 +27,38 @@ public:
 
 	// methods
 	// mutator
-	void setID(unsigned int newId) { ID = newId;} // implemented
-	void setName(string newName) { name = newName;} // implemented
-	void setOverdue(bool newValue) { overdue = newValue;} // implemented
+	void setID(unsigned int newId) { ID = newId;} 
+	void setName(string newName) { name = newName;} 
+	void setOverdue(bool newValue) { overdue = newValue;} 
 
 	// accessor
-	unsigned int getID() { return ID;} // implemented
-	string getName() { return name;} // implemented
+	unsigned int getID() { return ID;} 
+	string getName() { return name;} 
 	unsigned int getNumOverdue();
-	unsigned int getNumCheckout() { return numCheckout;} // implemented
+	unsigned int getNumCheckout() { return numCheckout;} 
 
 	// other
 	bool rentBook(Book& book);
 	bool returnBook(unsigned int bookId);
+	// return all of checked out books 
 	void returnAll();
-	bool isOverdue() { return overdue;} // implemented
+	bool isOverdue() { return overdue;} 
 	void renewBook();
 	void display();
 	void displayDetail();
+	// display all of checked out books
 	void displayBooks();
+	// Returns true if a book with bookid is already checked out by this user
 	bool alreadyRead(unsigned int bookid);
 	string getFirstGenre() { return firstG;}
 	string getSecondGenre() { return secondG;}
 	string getFavAuthor() { return favAuthor;}
+	// Calculate and set most and seconod most read Genre
 	void setFavGenre();
+	// Calculate and set most read Author
 	void setFavAuthor();
 	unsigned int getNumHistory() { return history.size();}
-	string outputFormat();
+	string outputFormat(); // make an output for exporting data
 
 private:
 	unsigned int ID;
@@ -54,10 +67,10 @@ private:
 	unsigned int numCheckout;
 	unsigned int numOverdue;
 	bool overdue;
-	map<int, Book*> history;
-	string favAuthor;
-	string firstG;
-	string secondG;
+	map<int, Book*> history; // what book this user checked out in the past
+	string favAuthor; // most read author
+	string firstG; // most read genre
+	string secondG; // second most read genre
 };
 
 #endif

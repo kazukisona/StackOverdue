@@ -1,6 +1,13 @@
+/*
+Author: Kazuki Sona
+Date: 14th, Dec
+Class: CSCI23500
+Instructor: Simon Ayzman
+Prgrram: BookWarehouse.cpp
+*/
+
 #ifndef BOOKWAREHOUSE_CPP
 #define BOOKWAREHOUSE_CPP
-
 #include <iostream>
 #include <string>
 #include "BookWarehouse.h"
@@ -53,7 +60,7 @@ void BookWarehouse::sortBooks(string criteria) {
 	if (criteria == "bookid") {
 		displayAll(); 
 		return;
-	}
+	} // sort by criteria 
 	else if (criteria == "title" || criteria == "author" || criteria == "genre") {
 		multimap<string, Book*> sorted;
 		multimap<string, Book*>::iterator sortedIt;
@@ -93,12 +100,13 @@ void BookWarehouse::sortBooks(string criteria) {
 }
 
 void BookWarehouse::recommend(User& user) {
-
+	// if there is no history, don't make a recommendation
 	if (user.getNumHistory() == 0) {
 		cout << "No available recommendations." << endl;
 		return;
 	}
 
+	// sort by popularity
 	multimap<int, Book*> sorted;
 	for (map<int, Book*>::iterator it=books.begin(); it!=books.end(); ++it) {
 		unsigned int key = it->second->getPopularity();
@@ -106,6 +114,7 @@ void BookWarehouse::recommend(User& user) {
 			sorted.insert(pair<int, Book*>(key, it->second));
 	}
 	
+	// get first two books with most read genre if available
 	int c_first_genre = 0;
 	cout << "You love " << user.getFirstGenre() << ". We recommend: " << endl;
 	for (multimap<int, Book*>::iterator sortedIt=sorted.begin(); sortedIt != sorted.end(); ++sortedIt) {
@@ -118,9 +127,8 @@ void BookWarehouse::recommend(User& user) {
 			break;
 		}
 	}
-
-	int c_second_genre = 0;
-	
+	// second most read genre
+	int c_second_genre = 0;	
 	if (!(user.getSecondGenre() == ""))
 		cout << "You love " << user.getSecondGenre() << ". We recommend: " << endl;
 
@@ -135,6 +143,7 @@ void BookWarehouse::recommend(User& user) {
 		}
 	}
 
+	// most read author
 	cout << "You love " << user.getFavAuthor() << ". We recommend: " << endl;
 	for (multimap<int, Book*>::iterator sortedIt=sorted.begin(); sortedIt != sorted.end(); ++sortedIt) {
 		string key = sortedIt->second->getAuthor();

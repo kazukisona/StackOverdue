@@ -1,3 +1,11 @@
+/*
+Author: Kazuki Sona
+Date: 14th, Dec
+Class: CSCI23500
+Instructor: Simon Ayzman
+Prgrram: Library.cpp
+*/
+
 #ifndef LIBRARY_CPP
 #define LIBRARY_CPP
 #include <iostream>
@@ -30,7 +38,7 @@ bool Library::removeBook(unsigned int bookId) {
 		unsigned int userid = bT->getCheckedUser();
 		User* uT = accounts.getUser(userid);
 		cout << "Force returning book from AccountID# " << uT->getID() << "." << endl;
-		uT->returnBook(bookId);
+		uT->returnBook(bookId); // forcefly return a book
 		return warehouse.delBook(bookId);
 	} else 
 		return warehouse.delBook(bookId);
@@ -40,15 +48,15 @@ void Library::checkOut(unsigned int userId, unsigned int bookId) {
 	User* uT = accounts.getUser(userId);
 	Book* bT = warehouse.getBook(bookId);
 
-	if (uT->isOverdue()) {
+	if (uT->isOverdue()) { // account with an overdue cannot checkout another book
 		cout << "Account has books overdue." << endl << endl;
-	} else if (uT->getNumCheckout() >= 10) {
+	} else if (uT->getNumCheckout() >= 10) { // account with 10 books checked out cannot too
 		cout << "Account already has 10 books checked out." << endl << endl;
-	} else if (!bT->isAvailable()) {
+	} else if (!bT->isAvailable()) { // if the book is already checked out, cannot checked out again
 		cout << "Book already is checked out." << endl << endl;
 	} else {
-		bT->setDueDate(currentTime+15);
-		uT->rentBook(*bT);
+		bT->setDueDate(currentTime+15); // set due date
+		uT->rentBook(*bT); // calling rent function
 		cout << "Book successfully checked out." << endl;
 		bT->displayDetail();
 	}
@@ -63,6 +71,7 @@ bool Library::returnBook(unsigned int bookId) {
 	bool success = false;
 	Book* bT = warehouse.getBook(bookId);
 
+	// check avialbility
 	if (bT->isAvailable()) {
 		cout << "Book is not currently checked out." << endl;
 		return success;
@@ -86,7 +95,7 @@ bool Library::returnBook(unsigned int bookId) {
 
 void Library::recommendation(unsigned int userid) {
 	User* uT = accounts.getUser(userid);
-
+	// call recommend engine function from warehouse
 	warehouse.recommend(*uT);
 }
 
@@ -96,6 +105,8 @@ void Library::updateSystem(unsigned int timeAdded) {
 	cout << "Travelled " << timeAdded << " days through time (" 
 		 << past << " --> " << currentTime << ")." << endl;
 	
+	// propagate a time change to warehouse and accounts
+	// changes status of each instance accordingly by calling functions
 	warehouse.updateStatus(currentTime);
 	accounts.updateStatus();
 }
@@ -128,6 +139,7 @@ void Library::importBooks(ifstream& newBooks) {
 		getline(newBooks, genre, '|');
 		getline(newBooks, str_pop);
 
+		// string to integer value
 		id = atoi(str_id.c_str());
 		popularity = atoi(str_pop.c_str());
 

@@ -1,3 +1,11 @@
+/*
+Author: Kazuki Sona
+Date: 14th, Dec
+Class: CSCI23500
+Instructor: Simon Ayzman
+Prgrram: Accounts.cpp
+*/
+
 #ifndef ACCOUNTS_CPP
 #define ACCOUNTS_CPP
 

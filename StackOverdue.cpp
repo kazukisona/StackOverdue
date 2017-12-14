@@ -1,3 +1,11 @@
+/*
+Author: Kazuki Sona
+Date: 14th, Dec
+Class: CSCI23500
+Instructor: Simon Ayzman
+Prgrram: StackOverdue.cpp
+*/
+
 #ifndef STACKOVERDUE_CPP
 #define STACKOVERDUE_CPP
 #include <iostream>
@@ -6,7 +14,8 @@
 using namespace std;
 
 void StackOverdue::browse() {
-	if (getTotalBooks() == 0 || getTotalBooks() == 4294967295) {
+
+	if (getTotalBooks() == 0) {
 		cout << "No books in your library." << endl;
 		return;
 	}

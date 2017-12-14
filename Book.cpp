@@ -1,3 +1,11 @@
+/*
+Author: Kazuki Sona
+Date: 14th, Dec
+Class: CSCI23500
+Instructor: Simon Ayzman
+Prgrram: Book.cpp
+*/
+
 #ifndef BOOK_CPP
 #define BOOK_CPP
 

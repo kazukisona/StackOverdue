@@ -1,3 +1,11 @@
+/*
+Author: Kazuki Sona
+Date: 14th, Dec
+Class: CSCI23500
+Instructor: Simon Ayzman
+Prgrram: Accounts.h
+*/
+
 #ifndef ACCOUNTS_H
 #define ACCOUNTS_H
 

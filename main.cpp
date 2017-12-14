@@ -1,3 +1,11 @@
+/*
+Author: Kazuki Sona
+Date: 14th, Dec
+Class: CSCI23500
+Instructor: Simon Ayzman
+Prgrram: main.cpp
+*/
+
 #ifndef MAIN_CPP
 #define MAIN_CPP
 #include <iostream>
@@ -6,6 +14,7 @@
 
 using namespace std;
 
+// helper function
 string toUpper(string str);
 
 int main(int argc, char const *argv[]) {
@@ -17,6 +26,7 @@ int main(int argc, char const *argv[]) {
 			inputB.open(argv[1]);
 
 			if (inputB.fail()) {
+				// when coundn't find file use dummy data
 				cout << "Could not find file \"" << argv[1] << "\". Skipping." << endl;
 				inputB.open("blank.book.data");
 			}
@@ -33,6 +43,7 @@ int main(int argc, char const *argv[]) {
 	else {
 		inputB.open(argv[1]);
 		if (inputB.fail()) {
+			// when coundn't find file use dummy data
 			cout << "Could not find file \"" << argv[1] << "\". Skipping." << endl;
 			inputB.open("blank.book.data"); // dummy data
 		}
@@ -42,6 +53,7 @@ int main(int argc, char const *argv[]) {
 
 		inputA.open(argv[2]);
 		if (inputA.fail()) {
+			// when coundn't find file use dummy data
 			cout << "Could not find file \"" << argv[2] << "\". Skipping." << endl;
 			inputA.open("blank.account.data"); // dummy data
 		}
@@ -142,6 +154,7 @@ int main(int argc, char const *argv[]) {
 	return 0;
 }
 
+// Returns a uppercase string of str
 string toUpper(string str) {
 	string lowercase = "";
 	for (int i = 0; i < str.length(); ++i) {

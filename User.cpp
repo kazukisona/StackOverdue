@@ -1,6 +1,13 @@
+/*
+Author: Kazuki Sona
+Date: 14th, Dec
+Class: CSCI23500
+Instructor: Simon Ayzman
+Prgrram: User.cpp
+*/
+
 #ifndef USER_CPP
 #define USER_CPP
-
 #include <iostream>
 #include "User.h"
 
@@ -150,19 +157,21 @@ bool User::alreadyRead(unsigned int bookid) {
 void User::setFavGenre() {
 	multimap<string, Book*> favs;
 	string key = "";
+	// sorting checked history by genre
 	for (map<int, Book*>::iterator it = history.begin(); it != history.end(); ++it) {
 		key = it->second->getGenre();
 		favs.insert(pair<string, Book*>(key, it->second));
 	}
-
+	// sort again by number of times of genres in history
 	multimap<int, string> tops;
 	for (multimap<string, Book*>::iterator it = favs.begin(); it != favs.end(); ++it) {
 		tops.insert(pair<int, string>(favs.count(it->first), it->first));
 	}
-		
+	// get most read genre
 	multimap<int, string>::reverse_iterator rit = tops.rbegin();
 	firstG = rit->second;
 
+	// get second most read genre
 	for (rit=tops.rbegin(); rit!=tops.rend(); ++rit) {
 		if (rit->second != firstG) {
 			secondG = rit->second;
@@ -174,16 +183,17 @@ void User::setFavGenre() {
 void User::setFavAuthor() {
 	multimap<string, Book*> favs;
 	string key = "";
+	// sorting history by author
 	for (map<int, Book*>::iterator it = history.begin(); it != history.end(); ++it) {
 		key = it->second->getAuthor();
 		favs.insert(pair<string, Book*>(key, it->second));
 	}
-
+	// sort by number of times a user checked out a book with fav author
 	multimap<int, string> tops;
 	for (multimap<string, Book*>::iterator it = favs.begin(); it != favs.end(); ++it) {
 		tops.insert(pair<int, string>(favs.count(it->first), it->first));
 	}
-
+	// get the first most read author
 	multimap<int, string>::reverse_iterator rit = tops.rbegin();
 	favAuthor = rit->second;
 }
