@@ -75,6 +75,12 @@ void User::returnAll() {
 void User::renewBook() {
 	int renewed = 0;
 	int c = 1;
+	
+	if (checkedOuts.size() == 0) {
+		cout << "No books on this account." << endl;
+		return;
+	}	
+
 	for (int i = 0; i < checkedOuts.size(); ++i) {
 		if (!(checkedOuts[i]->getNumRenewed() >= 2))
 			renewed++;

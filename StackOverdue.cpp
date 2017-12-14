@@ -208,7 +208,7 @@ void StackOverdue::removeA() {
 }
 
 void StackOverdue::time() {
-	unsigned int day;
+	unsigned int day = 0;
 	cout << "Enter the number of days to time travel." << endl;
 	cout << "> ";
 	cin >> day;

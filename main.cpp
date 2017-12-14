@@ -49,7 +49,7 @@ int main(int argc, char const *argv[]) {
 	}
 
 	StackOverdue stack = StackOverdue(inputB, inputA);
-
+	cout << endl;
 	string command;
 
 	// command processing

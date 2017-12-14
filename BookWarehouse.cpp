@@ -205,7 +205,7 @@ bool BookWarehouse::checkDuplicates(string title, string author) {
 void BookWarehouse::updateStatus(unsigned int currentTime) {
 	map<int, Book*>::iterator it;
 	for (it = books.begin(); it != books.end(); ++it) {
-		if (it->second->getDueDate() < currentTime)
+		if (it->second->getDueDate() != 0 && currentTime > it->second->getDueDate())
 			it->second->setOverdue();
 	}
 }

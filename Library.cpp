@@ -18,6 +18,8 @@ bool Library::addAccount(string newName) {
 	unsigned int newId = accounts.getNumUsers() + 1;
 	User* nUser = new User(newId, newName);
 
+	cout << "AccountID# " << newId << " successfully created." << endl;
+
 	return accounts.addUser(*nUser);
 }
 
@@ -128,7 +130,7 @@ void Library::importBooks(ifstream& newBooks) {
 
 		id = atoi(str_id.c_str());
 		popularity = atoi(str_pop.c_str());
-			
+
 		temp = new Book(id, title, author, genre, popularity);
 		warehouse.addBook(*temp);
 	}
@@ -168,11 +170,17 @@ void Library::importAccounts(ifstream& newAccounts) {
 			dueDate = atoi(str_due.c_str());
 			numRenew = atoi(str_renew.c_str());
 
-			// get the book from warehouse
-			tempB = warehouse.getBook(bookId);
-			tempB->setDueDate(dueDate);
-			tempB->setNumRenewed(numRenew);
-			tempU->rentBook(*tempB);
+			// check bookid is valid
+			if (isThereSomething("book", bookId)) {
+				// get the book from warehouse
+				tempB = warehouse.getBook(bookId);
+				tempB->setDueDate(dueDate);
+				tempB->setNumRenewed(numRenew);
+				tempU->rentBook(*tempB);
+			}
+			else {
+				cout << "Could not find library book with ID# " << bookId << "." << endl;
+			}
 		}
 		accounts.addUser(*tempU);
 	}
