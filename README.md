@@ -2,7 +2,7 @@
 
 ### Purpose
 This probram allows librarian who needs to manage tons of books and user accounts in the system to process
-ton of informations in a library.
+ton of informations in a library. This program uses many maps to allow a user a fast information processing.
 
 ### Compilation/Execution
 
@@ -22,7 +22,7 @@ Both book and account data is available under 'data/' folder.
 #### Book:
 `Book` class represents a data object which contains information about a book such as title, author, genre, popularity score. This class can holds history of a unique user who checked out this book instance in the past. Each book has an unique `ID`.
 #### User:
-`User` class represents a data object which contains information about a user such as name, checked out books. Each user has an unique `ID`. This class  maintains a history of what book this user checked out. The history will be used for recommendation.
+`User` class represents a data object which contains information about a user such as name, checked out books. Each user has an unique `ID`. This class  maintains a history of what book this user checked out. The history will be used for recommendation. Each user can have only 10 books. Underlying data structure for this is a vector. 
 #### BookWarehouse
 `BookWarehouse` class is a representation of a collection of `Book` instances. Precisely it holds pointers of `Book` class, `Book*`. This class is for storing and making a book shelf for fast book retrieving and providing information of books. 
 #### Accounts
